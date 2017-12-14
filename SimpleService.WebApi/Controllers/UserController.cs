@@ -1,7 +1,10 @@
 ﻿using Newtonsoft.Json;
 using SimpleService.Bll.Interfaces;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Http;
+using SimpleService.Entities;
 
 namespace SimpleService.WebApi.Controllers
 {
@@ -15,14 +18,11 @@ namespace SimpleService.WebApi.Controllers
 		}
 
 		// GET: api/User
-		public IEnumerable<string> Get()
+		public async Task<IEnumerable<string>> Get()
 		{
-			var users = this.logic.Get(this.logic.DefaultFilter);
+			var users = await this.logic.Get(this.logic.DefaultFilter);
 
-			foreach (var user in users)
-			{
-				yield return JsonConvert.SerializeObject(user);
-			}
+			return users.Select(JsonConvert.SerializeObject).ToList();
 		}
 
 		// GET: api/User/5
@@ -34,14 +34,11 @@ namespace SimpleService.WebApi.Controllers
 		}
 
 		// GET: api/UsersAlbuns/5
-		public IEnumerable<string> GetAlbums(int userId)
+		public async Task<IEnumerable<string>> GetAlbums(int userId)
 		{
-			var albums = this.logic.GetAlbums(userId);
+			var albums = await this.logic.GetAlbums(userId);
 
-			foreach (var album in albums)
-			{
-				yield return JsonConvert.SerializeObject(album);
-			}
+			return albums.Select(JsonConvert.SerializeObject).ToList();
 		}
 	}
 }

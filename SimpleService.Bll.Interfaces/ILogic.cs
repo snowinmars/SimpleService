@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using SimpleService.Entities;
 
 namespace SimpleService.Bll.Interfaces
 {
 	public interface ILogic<T>
 	{
-		T Get(int id);
+		Task<T> Get(int id);
 
-		IEnumerable<T> Get(Func<T, bool> filter);
+		Task<IEnumerable<T>> Get(Func<T, bool> filter);
 
 		Func<T, bool> DefaultFilter { get; }
 	}

@@ -1,6 +1,6 @@
-namespace SimpleService.Entities
+namespace SimpleService.Dao.InternalEntities
 {
-	public class Geolocation
+	internal class Geolocation
 	{
 		public double Latitude { get; set; }
 

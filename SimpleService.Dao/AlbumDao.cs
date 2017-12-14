@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using SimpleService.Dao.Interfaces;
 using SimpleService.Entities;
 
@@ -12,23 +13,33 @@ namespace SimpleService.Dao
 {
 	public class AlbumDao : IAlbumDao
 	{
-		private HttpClient httpClient;
+		private readonly HttpClient httpClient;
 
 		public AlbumDao()
 		{
 			this.httpClient = new HttpClient();
 		}
 
-		public Album Get(int id)
+		public async Task<Album> Get(int id)
 		{
-			throw new NotImplementedException();
+			string getAllAlbumsUrl = $"http://jsonplaceholder.typicode.com/albums/{id}";
+
+			var urlData = await this.httpClient.GetStringAsync(getAllAlbumsUrl);
+
+			var album = JsonConvert.DeserializeObject<InternalEntities.Album>(urlData);
+
+			return Mapper.Map(album);
 		}
 
-		public IEnumerable<Album> Get(Func<Album, bool> filter)
+		public async Task<IEnumerable<Album>> Get(Func<Album, bool> filter)
 		{
 			const string getAllAlbumsUrl = "http://jsonplaceholder.typicode.com/albums";
-			
-			return null;
+
+			var urlData = await this.httpClient.GetStringAsync(getAllAlbumsUrl);
+
+			var collection = JsonConvert.DeserializeObject<IEnumerable<InternalEntities.Album>>(urlData);
+
+			return Mapper.Map(collection).Where(filter.Invoke);
 		}
 	}
 }

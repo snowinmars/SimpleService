@@ -7,8 +7,8 @@ namespace SimpleService.Dao.Interfaces
 {
 	public interface IDao<T>
 	{
-		T Get(int id);
+		Task<T> Get(int id);
 
-		IEnumerable<Album> Get(Func<T, bool> filter);
+		Task<IEnumerable<T>> Get(Func<T, bool> filter);
 	}
 }

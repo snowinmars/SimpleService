@@ -1,10 +1,11 @@
 ﻿using SimpleService.Entities;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SimpleService.Bll.Interfaces
 {
 	public interface IUserLogic : ILogic<User>
 	{
-		IEnumerable<Album> GetAlbums(int userId);
+		Task<IEnumerable<Album>> GetAlbums(int userId);
 	}
 }

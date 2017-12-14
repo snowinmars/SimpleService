@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using SimpleService.Bll.Interfaces;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
 
@@ -16,14 +17,11 @@ namespace SimpleService.WebApi.Controllers
 		}
 
 		// GET: api/Album
-		public IEnumerable<string> Get()
+		public async Task<IEnumerable<string>> Get()
 		{
-			var albums = this.logic.Get(this.logic.DefaultFilter);
+			var albums = await this.logic.Get(this.logic.DefaultFilter);
 
-			foreach (var album in albums)
-			{
-				yield return JsonConvert.SerializeObject(album);
-			}
+			return albums.Select(JsonConvert.SerializeObject).ToList();
 		}
 
 		// GET: api/Album/5

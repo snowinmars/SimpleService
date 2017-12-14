@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>D:\NugetPackages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -41,6 +44,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AlbumDao.cs" />
+    <Compile Include="InternalEntities\Address.cs" />
+    <Compile Include="InternalEntities\Album.cs" />
+    <Compile Include="InternalEntities\Company.cs" />
+    <Compile Include="InternalEntities\Geolocation.cs" />
+    <Compile Include="InternalEntities\User.cs" />
+    <Compile Include="Mapper.cs" />
     <Compile Include="UserDao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -53,6 +62,9 @@
       <Project>{647B72C3-769F-4AAB-8A41-BA7D86048CE8}</Project>
       <Name>SimpleService.Entities</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

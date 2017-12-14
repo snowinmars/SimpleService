@@ -19,12 +19,12 @@ namespace SimpleService.Bll
 		    this.DefaultFilter = album => true;
 	    }
 
-	    public Album Get(int id)
+	    public Task<Album> Get(int id)
 	    {
 		    return this.albumDao.Get(id);
 	    }
 
-	    public IEnumerable<Album> Get(Func<Album, bool> filter)
+	    public Task<IEnumerable<Album>> Get(Func<Album, bool> filter)
 	    {
 			return this.albumDao.Get(filter);
 	    }

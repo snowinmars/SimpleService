@@ -5,32 +5,36 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SimpleService.Bll.Interfaces;
+using SimpleService.Dao.Interfaces;
 using SimpleService.Entities;
 
 namespace SimpleService.Bll
 {
 	public class UserLogic : IUserLogic
 	{
-		public UserLogic()
+		private readonly IUserDao dao;
+
+		public UserLogic(IUserDao dao)
 		{
+			this.dao = dao;
 			this.DefaultFilter = user => true;
 		}
 
-		public User Get(int id)
+		public Task<User> Get(int id)
 		{
-			throw new NotImplementedException();
+			return this.dao.Get(id);
 		}
 
 		public Func<User, bool> DefaultFilter { get; }
 
-		public IEnumerable<Album> GetAlbums(int userId)
+		public Task<IEnumerable<Album>> GetAlbums(int userId)
 		{
-			throw new NotImplementedException();
+			return this.dao.GetAlbums(userId);
 		}
 
-		public IEnumerable<User> Get(Func<User, bool> filter)
+		public Task<IEnumerable<User>> Get(Func<User, bool> filter)
 		{
-			throw new NotImplementedException();
+			return this.dao.Get(filter);
 		}
 	}
 }
