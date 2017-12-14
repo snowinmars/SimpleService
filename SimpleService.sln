@@ -11,6 +11,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleService.WebApi", "Sim
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleService.Ninject", "SimpleService.Ninject\SimpleService.Ninject.csproj", "{36C2DBF9-7FA4-452E-9567-FA23FB549365}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleService.Bll", "SimpleService.Bll\SimpleService.Bll.csproj", "{DCA418C7-178E-4EAD-B9F8-F2908CF1ECE6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleService.Dao.Interfaces", "SimpleService.Dao.Interfaces\SimpleService.Dao.Interfaces.csproj", "{EAC5A9AB-FF3C-4A01-854D-4F5CB48A600C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleService.Dao", "SimpleService.Dao\SimpleService.Dao.csproj", "{494AD9D8-96F2-441A-8217-E8AFE24D52B6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleService.Tests.IntegrationTests", "SimpleService.Tests.IntegrationTests\SimpleService.Tests.IntegrationTests.csproj", "{66B4B112-36A0-400F-970E-4F5358D4886A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +41,22 @@ Global
 		{36C2DBF9-7FA4-452E-9567-FA23FB549365}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{36C2DBF9-7FA4-452E-9567-FA23FB549365}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{36C2DBF9-7FA4-452E-9567-FA23FB549365}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCA418C7-178E-4EAD-B9F8-F2908CF1ECE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCA418C7-178E-4EAD-B9F8-F2908CF1ECE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCA418C7-178E-4EAD-B9F8-F2908CF1ECE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCA418C7-178E-4EAD-B9F8-F2908CF1ECE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EAC5A9AB-FF3C-4A01-854D-4F5CB48A600C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAC5A9AB-FF3C-4A01-854D-4F5CB48A600C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAC5A9AB-FF3C-4A01-854D-4F5CB48A600C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EAC5A9AB-FF3C-4A01-854D-4F5CB48A600C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{494AD9D8-96F2-441A-8217-E8AFE24D52B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{494AD9D8-96F2-441A-8217-E8AFE24D52B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{494AD9D8-96F2-441A-8217-E8AFE24D52B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{494AD9D8-96F2-441A-8217-E8AFE24D52B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66B4B112-36A0-400F-970E-4F5358D4886A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66B4B112-36A0-400F-970E-4F5358D4886A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66B4B112-36A0-400F-970E-4F5358D4886A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66B4B112-36A0-400F-970E-4F5358D4886A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

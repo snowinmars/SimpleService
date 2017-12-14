@@ -34,13 +34,24 @@ namespace SimpleService.WebApi
 			NinjectWebCommon.bootstrapper.ShutDown();
 		}
 
+		public static IKernel GetKernel()
+		{
+			if (NinjectWebCommon.kernel == default(IKernel))
+			{
+				NinjectWebCommon.CreateKernel();
+			}
+
+			return NinjectWebCommon.kernel;
+		}
+
+		private static IKernel kernel;
 		/// <summary>
 		/// Creates the kernel that will manage your application.
 		/// </summary>
 		/// <returns>The created kernel.</returns>
 		private static IKernel CreateKernel()
 		{
-			var kernel = new StandardKernel(); // you'll add modules to the parameter list here
+			kernel = new StandardKernel();
 			try
 			{
 				kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);

@@ -1,16 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="D:\NugetPackages\NUnit3TestAdapter.3.9.0\build\net35\NUnit3TestAdapter.props" Condition="Exists('D:\NugetPackages\NUnit3TestAdapter.3.9.0\build\net35\NUnit3TestAdapter.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{36C2DBF9-7FA4-452E-9567-FA23FB549365}</ProjectGuid>
+    <ProjectGuid>{66B4B112-36A0-400F-970E-4F5358D4886A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SimpleService.Ninject</RootNamespace>
-    <AssemblyName>SimpleService.Ninject</AssemblyName>
+    <RootNamespace>SimpleService.Tests.IntegrationTests</RootNamespace>
+    <AssemblyName>SimpleService.Tests.IntegrationTests</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -33,6 +36,9 @@
     <Reference Include="Ninject, Version=3.3.3.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>D:\NugetPackages\Ninject.3.3.3\lib\net45\Ninject.dll</HintPath>
     </Reference>
+    <Reference Include="nunit.framework, Version=3.9.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>D:\NugetPackages\NUnit.3.9.0\lib\net45\nunit.framework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -43,10 +49,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Registrator.cs" />
+    <Compile Include="AlbumTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -54,18 +61,23 @@
       <Project>{F917AE37-DA0D-45E0-BA0A-CDEB481C87C5}</Project>
       <Name>SimpleService.Bll.Interfaces</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SimpleService.Bll\SimpleService.Bll.csproj">
-      <Project>{DCA418C7-178E-4EAD-B9F8-F2908CF1ECE6}</Project>
-      <Name>SimpleService.Bll</Name>
+    <ProjectReference Include="..\SimpleService.Entities\SimpleService.Entities.csproj">
+      <Project>{647B72C3-769F-4AAB-8A41-BA7D86048CE8}</Project>
+      <Name>SimpleService.Entities</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SimpleService.Dao.Interfaces\SimpleService.Dao.Interfaces.csproj">
-      <Project>{EAC5A9AB-FF3C-4A01-854D-4F5CB48A600C}</Project>
-      <Name>SimpleService.Dao.Interfaces</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SimpleService.Dao\SimpleService.Dao.csproj">
-      <Project>{494AD9D8-96F2-441A-8217-E8AFE24D52B6}</Project>
-      <Name>SimpleService.Dao</Name>
+    <ProjectReference Include="..\SimpleService.WebApi\SimpleService.WebApi.csproj">
+      <Project>{6112C341-E1F9-4181-B077-DD5F966C0CC0}</Project>
+      <Name>SimpleService.WebApi</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('D:\NugetPackages\NUnit3TestAdapter.3.9.0\build\net35\NUnit3TestAdapter.props')" Text="$([System.String]::Format('$(ErrorText)', 'D:\NugetPackages\NUnit3TestAdapter.3.9.0\build\net35\NUnit3TestAdapter.props'))" />
+  </Target>
 </Project>
