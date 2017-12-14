@@ -1,17 +1,158 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Ninject;
 using NUnit.Framework;
 using SimpleService.Bll.Interfaces;
 using SimpleService.WebApi;
+using System.Linq;
+using System.Threading.Tasks;
+using SimpleService.Entities;
 
 namespace SimpleService.Tests.IntegrationTests
 {
 	public class UserTests
 	{
+		private IUserLogic logic;
+
+		[Test]
+		public async Task User_GetByFilter_AddressCityNameContains()
+		{
+			var users = await this.logic.Get(u => u.Address.City.Name.Contains(" "));
+
+			Assert.IsNotNull(users);
+
+			Assert.AreEqual(expected: 2, actual: users.Count());
+		}
+
+		[Test]
+		public async Task User_GetByFilter_AddressGeolocationLatitude()
+		{
+			var users = await this.logic.Get(u => u.Address.Geolocation.Latitude < -30);
+
+			Assert.IsNotNull(users);
+
+			Assert.AreEqual(expected: 6, actual: users.Count());
+		}
+
+		[Test]
+		public async Task User_GetByFilter_AddressGeolocationLongitude()
+		{
+			var users = await this.logic.Get(u => u.Address.Geolocation.Longitude > 60);
+
+			Assert.IsNotNull(users);
+
+			Assert.AreEqual(expected: 3, actual: users.Count());
+		}
+
+		[Test]
+		public async Task User_GetByFilter_AddressStreet()
+		{
+			var users = await this.logic.Get(u => u.Address.Street.Split(' ').Any(s => s.Length < 5));
+
+			Assert.IsNotNull(users);
+
+			Assert.AreEqual(expected: 3, actual: users.Count());
+		}
+
+		[Test]
+		public async Task User_GetByFilter_AddressSuiteContains()
+		{
+			var users = await this.logic.Get(u => u.Address.Suite.Contains("."));
+
+			Assert.IsNotNull(users);
+
+			Assert.AreEqual(expected: 3, actual: users.Count());
+		}
+
+		[Test]
+		public async Task User_GetByFilter_AddressZipCodeDoesntContains()
+		{
+			var users = await this.logic.Get(u => !u.Address.ZipCode.Contains("-"));
+
+			Assert.IsNotNull(users);
+
+			Assert.AreEqual(expected: 2, actual: users.Count());
+		}
+
+		[Test]
+		public async Task User_GetByFilter_CompanyBsContains()
+		{
+			var users = await this.logic.Get(u => u.Company.Bs.Contains("-"));
+
+			Assert.IsNotNull(users);
+
+			Assert.AreEqual(expected: 10, actual: users.Count());
+		}
+
+		[Test]
+		public async Task User_GetByFilter_CompanyCatchPhraseContains()
+		{
+			var users = await this.logic.Get(u => u.Company.CatchPhrase.Contains("-"));
+
+			Assert.IsNotNull(users);
+
+			Assert.AreEqual(expected: 7, actual: users.Count());
+		}
+
+		[Test]
+		public async Task User_GetByFilter_CompanyNameContains()
+		{
+			var users = await this.logic.Get(u => u.Company.Name.Contains("LLC"));
+
+			Assert.IsNotNull(users);
+
+			Assert.AreEqual(expected: 2, actual: users.Count());
+		}
+
+		[Test]
+		public async Task User_GetByFilter_DefaultFilter()
+		{
+			var users = await this.logic.Get(this.logic.DefaultFilter);
+
+			Assert.IsNotNull(users);
+
+			Assert.AreEqual(expected: 10, actual: users.Count());
+		}
+
+		[Test]
+		public async Task User_GetByFilter_EmailContains()
+		{
+			var users = await this.logic.Get(u => u.Email.Contains("net"));
+
+			Assert.IsNotNull(users);
+
+			Assert.AreEqual(expected: 1, actual: users.Count());
+		}
+
+		[Test]
+		public async Task User_GetByFilter_PhoneStartWith()
+		{
+			var users = await this.logic.Get(u => u.Phone.StartsWith("("));
+
+			Assert.IsNotNull(users);
+
+			Assert.AreEqual(expected: 2, actual: users.Count());
+		}
+
+		[Test]
+		public async Task User_GetByFilter_UserNameLength()
+		{
+			var users = await this.logic.Get(u => u.UserName.Length < 5);
+
+			Assert.IsNotNull(users);
+
+			Assert.AreEqual(expected: 1, actual: users.Count());
+		}
+
+		[Test]
+		public async Task User_GetByFilter_WebSiteContains()
+		{
+			var users = await this.logic.Get(u => u.WebSite.Contains("info"));
+
+			Assert.IsNotNull(users);
+
+			Assert.AreEqual(expected: 2, actual: users.Count());
+		}
+
 		[SetUp]
 		public void MyTestInitialize()
 		{
@@ -19,118 +160,80 @@ namespace SimpleService.Tests.IntegrationTests
 			this.logic = kernel.Get<IUserLogic>();
 		}
 
-		private IUserLogic logic;
-
 		[Test]
-		public async Task GetByFilter_UserNameLength()
+		[TestCaseSource("GetByIdCollection")]
+		public async Task User_GetById(User expectedUser)
 		{
-			var a = await this.logic.Get(u => u.UserName.Length < 5);
+			var user = await this.logic.Get(expectedUser.Id);
 
-			Assert.IsNotNull(a);
+			Assert.IsNotNull(user);
+
+			Assert.AreEqual(expected: expectedUser, actual: user);
 		}
 
-		[Test]
-		public async Task GetByFilter_CompanyNameContains()
+		private static IEnumerable<object> GetByIdCollection()
 		{
-			var a = await this.logic.Get(u => u.Company.Name.Contains("LLC"));
+			yield return new User
+			{
+				Id = 1,
+				Name = "Leanne Graham",
+				UserName = "Bret",
+				Email = "Sincere@april.biz",
+				Address = new Address
+				{
+					Street = "Kulas Light",
+					Suite = "Apt. 556",
+					City = new City
+					{
+						Name = "Gwenborough",
+					},
+					ZipCode = "92998-3874",
+					Geolocation = new Geolocation
+					{
+						Latitude = -37.3159,
+						Longitude = 81.1496,
+					}
+				},
+				Phone = "1-770-736-8031 x56442",
+				WebSite = "hildegard.org",
+				Company = new Company
+				{
+					Name = "Romaguera-Crona",
+					CatchPhrase = "Multi-layered client-server neural-net",
+					Bs = "harness real-time e-markets",
+				}
+			};
 
-			Assert.IsNotNull(a);
-		}
-
-		[Test]
-		public async Task GetByFilter_CompanyCatchPhraseContains()
-		{
-			var a = await this.logic.Get(u => u.Company.CatchPhrase.Contains("-"));
-
-			Assert.IsNotNull(a);
-		}
-
-		[Test]
-		public async Task GetByFilter_CompanyBsContains()
-		{
-			var a = await this.logic.Get(u => u.Company.Bs.Contains("-"));
-
-			Assert.IsNotNull(a);
-		}
-
-		[Test]
-		public async Task GetByFilter_AddressStreet()
-		{
-			var a = await this.logic.Get(u => u.Address.Street.Split(' ').Any(s => s.Length < 5));
-
-			Assert.IsNotNull(a);
-		}
-
-		[Test]
-		public async Task GetByFilter_AddressSuiteContains()
-		{
-			var a = await this.logic.Get(u => u.Address.Suite.Contains("."));
-
-			Assert.IsNotNull(a);
-		}
-
-		[Test]
-		public async Task GetByFilter_AddressZipCodeDoesntContains()
-		{
-			var a = await this.logic.Get(u => !u.Address.ZipCode.Contains("-"));
-
-			Assert.IsNotNull(a);
-		}
-
-		[Test]
-		public async Task GetByFilter_AddressGeolocationLongitude()
-		{
-			var a = await this.logic.Get(u => u.Address.Geolocation.Longitude > 60);
-
-			Assert.IsNotNull(a);
-		}
-
-		[Test]
-		public async Task GetByFilter_AddressGeolocationLatitude()
-		{
-			var a = await this.logic.Get(u => u.Address.Geolocation.Latitude < -30);
-
-			Assert.IsNotNull(a);
-		}
-
-		[Test]
-		public async Task GetByFilter_AddressCityNameContains()
-		{
-			var a = await this.logic.Get(u => u.Address.City.Name.Contains(" "));
-
-			Assert.IsNotNull(a);
-		}
-
-		[Test]
-		public async Task GetByFilter_EmailContains()
-		{
-			var a = await this.logic.Get(u => u.Email.Contains("net"));
-
-			Assert.IsNotNull(a);
-		}
-
-		[Test]
-		public async Task GetByFilter_PhoneStartWith()
-		{
-			var a = await this.logic.Get(u => u.Phone.StartsWith("("));
-
-			Assert.IsNotNull(a);
-		}
-
-		[Test]
-		public async Task GetByFilter_WebSiteContains()
-		{
-			var a = await this.logic.Get(u => u.WebSite.Contains("info"));
-
-			Assert.IsNotNull(a);
-		}
-
-		[Test]
-		public async Task GetByFilter_DefaultFilter()
-		{
-			var a = await this.logic.Get(this.logic.DefaultFilter);
-
-			Assert.IsNotNull(a);
+			yield return new User
+			{
+				Id = 5,
+				Name = "Chelsey Dietrich",
+				UserName = "Kamren",
+				Email = "Lucio_Hettinger@annie.ca",
+				Address = new Address
+				{
+					Street = "Skiles Walks",
+					Suite = "Suite 351",
+					City = new City
+					{
+						Name = "Roscoeview",
+					},
+					ZipCode = "33263",
+					Geolocation = new Geolocation
+					{
+						Latitude = -31.8129,
+						Longitude = 62.5342,
+					}
+				},
+				Phone = "(254)954-1289",
+				WebSite = "demarco.info",
+				Company = new Company
+				{
+					Name = "Keebler LLC",
+					CatchPhrase = "User-centric fault-tolerant solution",
+					Bs = "revolutionize end-to-end systems",
+				}
+			};
 		}
 	}
 }

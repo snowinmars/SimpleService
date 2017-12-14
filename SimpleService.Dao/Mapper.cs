@@ -61,8 +61,8 @@ namespace SimpleService.Dao
 		{
 			return new Geolocation
 			{
-				Latitude = internalGeolocation.Latitude,
-				Longitude = internalGeolocation.Longitude,
+				Latitude = internalGeolocation.Lat,
+				Longitude = internalGeolocation.Lng,
 			};
 		}
 
@@ -73,7 +73,7 @@ namespace SimpleService.Dao
 				Name = internalAddress.City,
 			};
 
-			var geolocation = Map(internalAddress.Geolocation);
+			var geolocation = Map(internalAddress.Geo);
 
 			return new Address
 			{

@@ -5,6 +5,12 @@ namespace SimpleService.Entities
 {
 	public class User
 	{
+		public User()
+		{
+			this.Address = new Address();
+			this.Company = new Company();
+		}
+
 		private string webSite;
 		public Address Address { get; set; }
 		public Company Company { get; set; }
@@ -28,6 +34,62 @@ namespace SimpleService.Entities
 
 				this.webSite = value;
 			}
+		}
+
+		public override bool Equals(object obj)
+		{
+			User user = obj as User;
+
+			return !object.ReferenceEquals(user, null) && this.Equals(user);
+		}
+
+		protected bool Equals(User other)
+		{
+			return string.Equals(this.webSite, other.webSite) &&
+				Equals(this.Address, other.Address) &&
+				Equals(this.Company, other.Company) &&
+				string.Equals(this.Email, other.Email) &&
+				this.Id == other.Id &&
+				string.Equals(this.Name, other.Name) &&
+				string.Equals(this.Phone, other.Phone) &&
+				string.Equals(this.UserName, other.UserName);
+		}
+
+		public override int GetHashCode()
+		{
+			unchecked
+			{
+				var hashCode = (object.ReferenceEquals(this.webSite, null) ? this.webSite.GetHashCode() : 0);
+				hashCode = (hashCode * 397) ^ (object.ReferenceEquals(this.Address, null) ? this.Address.GetHashCode() : 0);
+				hashCode = (hashCode * 397) ^ (object.ReferenceEquals(this.Company, null) ? this.Company.GetHashCode() : 0);
+				hashCode = (hashCode * 397) ^ (object.ReferenceEquals(this.Email, null) ? this.Email.GetHashCode() : 0);
+				hashCode = (hashCode * 397) ^ this.Id;
+				hashCode = (hashCode * 397) ^ (object.ReferenceEquals(this.Name, null) ? this.Name.GetHashCode() : 0);
+				hashCode = (hashCode * 397) ^ (object.ReferenceEquals(this.Phone, null) ? this.Phone.GetHashCode() : 0);
+				hashCode = (hashCode * 397) ^ (object.ReferenceEquals(this.UserName, null) ? this.UserName.GetHashCode() : 0);
+				return hashCode;
+			}
+		}
+
+		public static bool operator ==(User lhs, User rhs)
+		{
+			if (object.ReferenceEquals(lhs, null) && object.ReferenceEquals(rhs, null))
+			{
+				return true;
+			}
+
+			if (object.ReferenceEquals(lhs, null) ||
+				object.ReferenceEquals(rhs, null))
+			{
+				return false;
+			}
+
+			return lhs.Equals(rhs);
+		}
+
+		public static bool operator !=(User lhs, User rhs)
+		{
+			return !(lhs == rhs);
 		}
 	}
 }
