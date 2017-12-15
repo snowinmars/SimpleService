@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace SimpleService.Entities
 {
-	public class User
+	public class User : IDeepClonable<User>
 	{
 		public User()
 		{
@@ -36,8 +36,37 @@ namespace SimpleService.Entities
 			}
 		}
 
+		public User DeepClone()
+		{
+			return new User
+			{
+				Email = this.Email,
+				Id = this.Id,
+				Name = this.Name,
+				UserName = this.UserName,
+				Phone = this.Phone,
+				WebSite = this.WebSite,
+				Company = this.Company.DeepClone(),
+				Address = this.Address.DeepClone(),
+			};
+		}
+
+		#region Equals
+
 		public override bool Equals(object obj)
 		{
+			if (object.ReferenceEquals(this, null) && // this could be true, take a look at call and callvirt codes
+				object.ReferenceEquals(obj, null))
+			{
+				return true;
+			}
+
+			if (object.ReferenceEquals(this, null) ||
+				object.ReferenceEquals(obj, null))
+			{
+				return false;
+			}
+
 			User user = obj as User;
 
 			return !object.ReferenceEquals(user, null) && this.Equals(user);
@@ -71,25 +100,6 @@ namespace SimpleService.Entities
 			}
 		}
 
-		public static bool operator ==(User lhs, User rhs)
-		{
-			if (object.ReferenceEquals(lhs, null) && object.ReferenceEquals(rhs, null))
-			{
-				return true;
-			}
-
-			if (object.ReferenceEquals(lhs, null) ||
-				object.ReferenceEquals(rhs, null))
-			{
-				return false;
-			}
-
-			return lhs.Equals(rhs);
-		}
-
-		public static bool operator !=(User lhs, User rhs)
-		{
-			return !(lhs == rhs);
-		}
+		#endregion Equals
 	}
 }

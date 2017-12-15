@@ -39,6 +39,15 @@
     <Reference Include="nunit.framework, Version=3.9.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
       <HintPath>D:\NugetPackages\NUnit.3.9.0\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="SandS.Algorithm.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>D:\NugetPackages\SandS.Algorithm.Common.2.0.1.02\lib\SandS.Algorithm.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="SandS.Algorithm.Extensions.StringBuilderExtension, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>D:\NugetPackages\SandS.Algorithm.Extensions.StringBuilderExtension.2.0.1.01\lib\SandS.Algorithm.Extensions.StringBuilderExtension.dll</HintPath>
+    </Reference>
+    <Reference Include="SandS.Algorithm.Library.Generator, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>D:\NugetPackages\SandS.Algorithm.Library.Generator.2.0.2\lib\SandS.Algorithm.Library.Generator.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -50,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AlbumTests.cs" />
+    <Compile Include="EntityOperatorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserTests.cs" />
   </ItemGroup>

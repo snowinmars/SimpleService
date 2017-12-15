@@ -1,13 +1,36 @@
 namespace SimpleService.Entities
 {
-	public class Geolocation
+	public class Geolocation : IDeepClonable<Geolocation>
 	{
 		public double Latitude { get; set; }
 
 		public double Longitude { get; set; }
 
+		public Geolocation DeepClone()
+		{
+			return new Geolocation
+			{
+				Longitude = this.Longitude,
+				Latitude = this.Latitude,
+			};
+		}
+
+		#region Equals
+
 		public override bool Equals(object obj)
 		{
+			if (object.ReferenceEquals(this, null) && // this could be true, take a look at call and callvirt codes
+				object.ReferenceEquals(obj, null))
+			{
+				return true;
+			}
+
+			if (object.ReferenceEquals(this, null) ||
+				object.ReferenceEquals(obj, null))
+			{
+				return false;
+			}
+
 			Geolocation geolocation = obj as Geolocation;
 
 			return !object.ReferenceEquals(geolocation, null) && this.Equals(geolocation);
@@ -27,25 +50,6 @@ namespace SimpleService.Entities
 			}
 		}
 
-		public static bool operator ==(Geolocation lhs, Geolocation rhs)
-		{
-			if (object.ReferenceEquals(lhs, null) && object.ReferenceEquals(rhs, null))
-			{
-				return true;
-			}
-
-			if (object.ReferenceEquals(lhs, null) ||
-				object.ReferenceEquals(rhs, null))
-			{
-				return false;
-			}
-
-			return lhs.Equals(rhs);
-		}
-
-		public static bool operator !=(Geolocation lhs, Geolocation rhs)
-		{
-			return !(lhs == rhs);
-		}
+		#endregion Equals
 	}
 }

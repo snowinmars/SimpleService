@@ -43,8 +43,10 @@
     <Compile Include="Address.cs" />
     <Compile Include="Album.cs" />
     <Compile Include="City.cs" />
+    <Compile Include="CommonExtenstions.cs" />
     <Compile Include="Company.cs" />
     <Compile Include="Geolocation.cs" />
+    <Compile Include="IDeepClonable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="User.cs" />
   </ItemGroup>

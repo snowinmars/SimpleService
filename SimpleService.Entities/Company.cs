@@ -1,13 +1,37 @@
 namespace SimpleService.Entities
 {
-	public class Company
+	public class Company : IDeepClonable<Company>
 	{
 		public string Bs { get; set; }
 		public string CatchPhrase { get; set; }
 		public string Name { get; set; }
 
+		public Company DeepClone()
+		{
+			return new Company
+			{
+				Name = this.Name,
+				CatchPhrase = this.CatchPhrase,
+				Bs = this.Bs,
+			};
+		}
+
+		#region Equals
+
 		public override bool Equals(object obj)
 		{
+			if (object.ReferenceEquals(this, null) && // this could be true, take a look at call and callvirt codes
+				object.ReferenceEquals(obj, null))
+			{
+				return true;
+			}
+
+			if (object.ReferenceEquals(this, null) ||
+				object.ReferenceEquals(obj, null))
+			{
+				return false;
+			}
+
 			Company company = obj as Company;
 
 			return !object.ReferenceEquals(company, null) && this.Equals(company);
@@ -31,25 +55,6 @@ namespace SimpleService.Entities
 			}
 		}
 
-		public static bool operator ==(Company lhs, Company rhs)
-		{
-			if (object.ReferenceEquals(lhs, null) && object.ReferenceEquals(rhs, null))
-			{
-				return true;
-			}
-
-			if (object.ReferenceEquals(lhs, null) ||
-				object.ReferenceEquals(rhs, null))
-			{
-				return false;
-			}
-
-			return lhs.Equals(rhs);
-		}
-
-		public static bool operator !=(Company lhs, Company rhs)
-		{
-			return !(lhs == rhs);
-		}
+		#endregion Equals
 	}
 }

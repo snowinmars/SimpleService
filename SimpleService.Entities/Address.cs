@@ -1,6 +1,6 @@
 namespace SimpleService.Entities
 {
-	public class Address
+	public class Address : IDeepClonable<Address>
 	{
 		public Address()
 		{
@@ -14,8 +14,34 @@ namespace SimpleService.Entities
 		public string Suite { get; set; }
 		public string ZipCode { get; set; }
 
+		public Address DeepClone()
+		{
+			return new Address
+			{
+				Street = this.Street,
+				Suite = this.Suite,
+				ZipCode = this.ZipCode,
+				City = this.City.DeepClone(),
+				Geolocation = this.Geolocation.DeepClone(),
+			};
+		}
+
+		#region Equals
+
 		public override bool Equals(object obj)
 		{
+			if (object.ReferenceEquals(this, null) && // this could be true, take a look at call and callvirt codes
+				object.ReferenceEquals(obj, null))
+			{
+				return true;
+			}
+
+			if (object.ReferenceEquals(this, null) ||
+				object.ReferenceEquals(obj, null))
+			{
+				return false;
+			}
+
 			Address address = obj as Address;
 
 			return !object.ReferenceEquals(address, null) && this.Equals(address);
@@ -43,25 +69,6 @@ namespace SimpleService.Entities
 			}
 		}
 
-		public static bool operator ==(Address lhs, Address rhs)
-		{
-			if (object.ReferenceEquals(lhs, null) && object.ReferenceEquals(rhs, null))
-			{
-				return true;
-			}
-
-			if (object.ReferenceEquals(lhs, null) ||
-				object.ReferenceEquals(rhs, null))
-			{
-				return false;
-			}
-
-			return lhs.Equals(rhs);
-		}
-
-		public static bool operator !=(Address lhs, Address rhs)
-		{
-			return !(lhs == rhs);
-		}
+		#endregion Equals
 	}
 }
