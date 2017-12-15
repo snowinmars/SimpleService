@@ -1,5 +1,6 @@
 using System;
 using System.Text.RegularExpressions;
+using SimpleService.Common;
 
 namespace SimpleService.Entities
 {
@@ -26,7 +27,7 @@ namespace SimpleService.Entities
 			get { return this.webSite; }
 			set
 			{
-				const string urlRegex = @"(https?:\/\/(www\.)?)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)";
+				const string urlRegex = Config.UrlRegex;
 
 				if (!Regex.IsMatch(value, urlRegex, RegexOptions.IgnoreCase | RegexOptions.CultureInvariant))
 				{

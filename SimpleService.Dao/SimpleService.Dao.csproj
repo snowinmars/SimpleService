@@ -54,6 +54,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SimpleService.Common\SimpleService.Common.csproj">
+      <Project>{583709FE-C4C4-4557-9745-DDE3362FB73F}</Project>
+      <Name>SimpleService.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SimpleService.Dao.Interfaces\SimpleService.Dao.Interfaces.csproj">
       <Project>{EAC5A9AB-FF3C-4A01-854D-4F5CB48A600C}</Project>
       <Name>SimpleService.Dao.Interfaces</Name>

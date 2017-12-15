@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using SimpleService.Common;
 
 namespace SimpleService.Dao
 {
@@ -20,9 +21,9 @@ namespace SimpleService.Dao
 
 		public async Task<Album> Get(int id)
 		{
-			string getAllAlbumsUrl = $"http://jsonplaceholder.typicode.com/albums/{id}";
+			string getAlbumByIdUrl = string.Format(Config.Url.AlbumByIdFormat, id);
 
-			var urlData = await this.httpClient.GetStringAsync(getAllAlbumsUrl);
+			var urlData = await this.httpClient.GetStringAsync(getAlbumByIdUrl);
 
 			var album = JsonConvert.DeserializeObject<InternalEntities.Album>(urlData);
 
@@ -31,7 +32,7 @@ namespace SimpleService.Dao
 
 		public async Task<IEnumerable<Album>> Get(Func<Album, bool> filter)
 		{
-			const string getAllAlbumsUrl = "http://jsonplaceholder.typicode.com/albums";
+			string getAllAlbumsUrl = Config.Url.Albums;
 
 			var urlData = await this.httpClient.GetStringAsync(getAllAlbumsUrl);
 

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using SimpleService.Common;
 
 namespace SimpleService.Dao
 {
@@ -20,9 +21,9 @@ namespace SimpleService.Dao
 
 		public async Task<User> Get(int id)
 		{
-			string getAllAlbumsUrl = $"http://jsonplaceholder.typicode.com/users/{id}";
+			string getUserByIdUrl = string.Format(Config.Url.UserByIdFormat, id);
 
-			var urlData = await this.httpClient.GetStringAsync(getAllAlbumsUrl);
+			var urlData = await this.httpClient.GetStringAsync(getUserByIdUrl);
 
 			var collection = JsonConvert.DeserializeObject<InternalEntities.User>(urlData);
 
@@ -31,9 +32,9 @@ namespace SimpleService.Dao
 
 		public async Task<IEnumerable<User>> Get(Func<User, bool> filter)
 		{
-			const string getAllAlbumsUrl = "http://jsonplaceholder.typicode.com/users";
+			string getAllUsersUrl = Config.Url.Users;
 
-			var urlData = await this.httpClient.GetStringAsync(getAllAlbumsUrl);
+			var urlData = await this.httpClient.GetStringAsync(getAllUsersUrl);
 
 			var collection = JsonConvert.DeserializeObject<IEnumerable<InternalEntities.User>>(urlData);
 
@@ -42,9 +43,9 @@ namespace SimpleService.Dao
 
 		public async Task<IEnumerable<Album>> GetAlbums(int userId)
 		{
-			string getAllAlbumsUrl = $"http://jsonplaceholder.typicode.com/albums?userId={userId}";
+			string getAllAlbumsForUserUrl = string.Format(Config.Url.AlbumByUserIdFormat, userId);
 
-			var urlData = await this.httpClient.GetStringAsync(getAllAlbumsUrl);
+			var urlData = await this.httpClient.GetStringAsync(getAllAlbumsForUserUrl);
 
 			var collection = JsonConvert.DeserializeObject<IEnumerable<InternalEntities.Album>>(urlData);
 
