@@ -16,6 +16,18 @@ namespace SimpleService.WebApi
 	{
 		private static readonly Bootstrapper bootstrapper = new Bootstrapper();
 
+		private static IKernel kernel;
+
+		public static IKernel GetKernel()
+		{
+			if (NinjectWebCommon.kernel == default(IKernel))
+			{
+				NinjectWebCommon.CreateKernel();
+			}
+
+			return NinjectWebCommon.kernel;
+		}
+
 		/// <summary>
 		/// Starts the application
 		/// </summary>
@@ -34,17 +46,6 @@ namespace SimpleService.WebApi
 			NinjectWebCommon.bootstrapper.ShutDown();
 		}
 
-		public static IKernel GetKernel()
-		{
-			if (NinjectWebCommon.kernel == default(IKernel))
-			{
-				NinjectWebCommon.CreateKernel();
-			}
-
-			return NinjectWebCommon.kernel;
-		}
-
-		private static IKernel kernel;
 		/// <summary>
 		/// Creates the kernel that will manage your application.
 		/// </summary>
