@@ -11,6 +11,12 @@ namespace SimpleService.Tests.IntegrationTests
 {
 	public class UserTests
 	{
+		public UserTests()
+		{
+			var kernel = NinjectWebCommon.GetKernel();
+			this.logic = kernel.Get<IUserLogic>();
+		}
+
 		private IUserLogic logic;
 
 		[Test]
@@ -151,13 +157,6 @@ namespace SimpleService.Tests.IntegrationTests
 			Assert.IsNotNull(users);
 
 			Assert.AreEqual(expected: 2, actual: users.Count());
-		}
-
-		[SetUp]
-		public void MyTestInitialize()
-		{
-			var kernel = NinjectWebCommon.GetKernel();
-			this.logic = kernel.Get<IUserLogic>();
 		}
 
 		[Test]

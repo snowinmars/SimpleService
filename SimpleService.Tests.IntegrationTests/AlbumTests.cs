@@ -11,6 +11,12 @@ namespace SimpleService.Tests.IntegrationTests
 {
 	public class AlbumTests
 	{
+		public AlbumTests()
+		{
+			var kernel = NinjectWebCommon.GetKernel();
+			this.logic = kernel.Get<IAlbumLogic>();
+		}
+
 		private IAlbumLogic logic;
 
 		[Test]
@@ -52,13 +58,6 @@ namespace SimpleService.Tests.IntegrationTests
 			Assert.IsNotNull(albums);
 
 			Assert.AreEqual(expected: expectedAlbum, actual: albums);
-		}
-
-		[SetUp]
-		public void MyTestInitialize()
-		{
-			var kernel = NinjectWebCommon.GetKernel();
-			this.logic = kernel.Get<IAlbumLogic>();
 		}
 
 		private static IEnumerable<object> GetByIdCollection()
