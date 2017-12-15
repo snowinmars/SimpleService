@@ -88,14 +88,14 @@ namespace SimpleService.Entities
 		{
 			unchecked
 			{
-				var hashCode = (object.ReferenceEquals(this.webSite, null) ? this.webSite.GetHashCode() : 0);
-				hashCode = (hashCode * 397) ^ (object.ReferenceEquals(this.Address, null) ? this.Address.GetHashCode() : 0);
-				hashCode = (hashCode * 397) ^ (object.ReferenceEquals(this.Company, null) ? this.Company.GetHashCode() : 0);
-				hashCode = (hashCode * 397) ^ (object.ReferenceEquals(this.Email, null) ? this.Email.GetHashCode() : 0);
+				var hashCode = (!object.ReferenceEquals(this.webSite, null) ? this.webSite.GetHashCode() : 0);
+				hashCode = (hashCode * 397) ^ (!object.ReferenceEquals(this.Address, null) ? this.Address.GetHashCode() : 0);
+				hashCode = (hashCode * 397) ^ (!object.ReferenceEquals(this.Company, null) ? this.Company.GetHashCode() : 0);
+				hashCode = (hashCode * 397) ^ (!object.ReferenceEquals(this.Email, null) ? this.Email.GetHashCode() : 0);
 				hashCode = (hashCode * 397) ^ this.Id;
-				hashCode = (hashCode * 397) ^ (object.ReferenceEquals(this.Name, null) ? this.Name.GetHashCode() : 0);
-				hashCode = (hashCode * 397) ^ (object.ReferenceEquals(this.Phone, null) ? this.Phone.GetHashCode() : 0);
-				hashCode = (hashCode * 397) ^ (object.ReferenceEquals(this.UserName, null) ? this.UserName.GetHashCode() : 0);
+				hashCode = (hashCode * 397) ^ (!object.ReferenceEquals(this.Name, null) ? this.Name.GetHashCode() : 0);
+				hashCode = (hashCode * 397) ^ (!object.ReferenceEquals(this.Phone, null) ? this.Phone.GetHashCode() : 0);
+				hashCode = (hashCode * 397) ^ (!object.ReferenceEquals(this.UserName, null) ? this.UserName.GetHashCode() : 0);
 				return hashCode;
 			}
 		}

@@ -20,36 +20,55 @@ namespace SimpleService.Tests.IntegrationTests
 		public void Address_Equals()
 		{
 			this.AssertEquals(this.GetNewAddress, a => a.DeepClone());
+			this.AssertHashCode(this.GetNewAddress, a => a.DeepClone());
 		}
 
 		[Test]
 		public void Album_Equals()
 		{
 			this.AssertEquals(this.GetNewAlbum, a => a.DeepClone());
+			this.AssertHashCode(this.GetNewAlbum, a => a.DeepClone());
 		}
 
 		[Test]
 		public void City_Equals()
 		{
 			this.AssertEquals(this.GetNewCity, c => c.DeepClone());
+			this.AssertHashCode(this.GetNewCity, c => c.DeepClone());
 		}
 
 		[Test]
 		public void Company_Equals()
 		{
 			this.AssertEquals(this.GetNewCompany, c => c.DeepClone());
+			this.AssertHashCode(this.GetNewCompany, c => c.DeepClone());
 		}
 
 		[Test]
 		public void Geolocation_Equals()
 		{
 			this.AssertEquals(this.GetNewGeolocation, g => g.DeepClone());
+			this.AssertHashCode(this.GetNewGeolocation, g => g.DeepClone());
 		}
 
 		[Test]
 		public void User_Equals()
 		{
 			this.AssertEquals(this.GetNewUser, u => u.DeepClone());
+			this.AssertHashCode(this.GetNewUser, u => u.DeepClone());
+		}
+
+		protected void AssertHashCode<T>(Func<T> generate, Func<T, T> copy)
+			where T : class
+		{
+			T lhs = generate.Invoke();
+			T rhs = generate.Invoke();
+
+			Assert.IsFalse(lhs.GetHashCode() == rhs.GetHashCode());
+
+			rhs = copy.Invoke(lhs);
+
+			Assert.IsTrue(lhs.GetHashCode() == rhs.GetHashCode());
 		}
 
 		protected void AssertEquals<T>(Func<T> generate, Func<T, T> copy)

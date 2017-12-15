@@ -48,9 +48,9 @@ namespace SimpleService.Entities
 		{
 			unchecked
 			{
-				var hashCode = (object.ReferenceEquals(this.Bs, null) ? this.Bs.GetHashCode() : 0);
-				hashCode = (hashCode * 397) ^ (object.ReferenceEquals(this.CatchPhrase, null) ? this.CatchPhrase.GetHashCode() : 0);
-				hashCode = (hashCode * 397) ^ (object.ReferenceEquals(this.Name, null) ? this.Name.GetHashCode() : 0);
+				var hashCode = (!object.ReferenceEquals(this.Bs, null) ? this.Bs.GetHashCode() : 0);
+				hashCode = (hashCode * 397) ^ (!object.ReferenceEquals(this.CatchPhrase, null) ? this.CatchPhrase.GetHashCode() : 0);
+				hashCode = (hashCode * 397) ^ (!object.ReferenceEquals(this.Name, null) ? this.Name.GetHashCode() : 0);
 				return hashCode;
 			}
 		}

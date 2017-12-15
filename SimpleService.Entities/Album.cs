@@ -49,7 +49,7 @@ namespace SimpleService.Entities
 			unchecked
 			{
 				var hashCode = this.Id;
-				hashCode = (hashCode * 397) ^ (object.ReferenceEquals(this.Title, null) ? this.Title.GetHashCode() : 0);
+				hashCode = (hashCode * 397) ^ (!object.ReferenceEquals(this.Title, null) ? this.Title.GetHashCode() : 0);
 				hashCode = (hashCode * 397) ^ this.UserId;
 				return hashCode;
 			}

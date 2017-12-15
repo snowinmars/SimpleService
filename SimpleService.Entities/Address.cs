@@ -60,11 +60,11 @@ namespace SimpleService.Entities
 		{
 			unchecked
 			{
-				var hashCode = (object.ReferenceEquals(this.City, null) ? this.City.GetHashCode() : 0);
-				hashCode = (hashCode * 397) ^ (object.ReferenceEquals(this.Geolocation, null) ? this.Geolocation.GetHashCode() : 0);
-				hashCode = (hashCode * 397) ^ (object.ReferenceEquals(this.Street, null) ? this.Street.GetHashCode() : 0);
-				hashCode = (hashCode * 397) ^ (object.ReferenceEquals(this.Suite, null) ? this.Suite.GetHashCode() : 0);
-				hashCode = (hashCode * 397) ^ (object.ReferenceEquals(this.ZipCode, null) ? this.ZipCode.GetHashCode() : 0);
+				var hashCode = (!object.ReferenceEquals(this.City, null) ? this.City.GetHashCode() : 0);
+				hashCode = (hashCode * 397) ^ (!object.ReferenceEquals(this.Geolocation, null) ? this.Geolocation.GetHashCode() : 0);
+				hashCode = (hashCode * 397) ^ (!object.ReferenceEquals(this.Street, null) ? this.Street.GetHashCode() : 0);
+				hashCode = (hashCode * 397) ^ (!object.ReferenceEquals(this.Suite, null) ? this.Suite.GetHashCode() : 0);
+				hashCode = (hashCode * 397) ^ (!object.ReferenceEquals(this.ZipCode, null) ? this.ZipCode.GetHashCode() : 0);
 				return hashCode;
 			}
 		}

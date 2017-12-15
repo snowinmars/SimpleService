@@ -40,7 +40,7 @@ namespace SimpleService.Entities
 
 		public override int GetHashCode()
 		{
-			return (object.ReferenceEquals(this.Name, null) ? this.Name.GetHashCode() : 0);
+			return (!object.ReferenceEquals(this.Name, null) ? this.Name.GetHashCode() : 0);
 		}
 
 		#endregion Equals
