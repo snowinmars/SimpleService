@@ -64,9 +64,16 @@ namespace SimpleService.Tests.IntegrationTests
 
 			Assert.IsFalse(lhs.Equals(rhs));
 
-			rhs = copy?.Invoke(lhs);
+			rhs = copy.Invoke(lhs);
 
 			Assert.IsTrue(lhs.Equals(rhs));
+
+			object smth = new object();
+
+			Assert.IsFalse(lhs.Equals(smth));
+			Assert.IsFalse(rhs.Equals(smth));
+			Assert.IsFalse(smth.Equals(lhs));
+			Assert.IsFalse(smth.Equals(rhs));
 		}
 
 		private Address GetNewAddress()

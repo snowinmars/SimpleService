@@ -50,7 +50,7 @@ namespace SimpleService.Tests.IntegrationTests
 		}
 
 		[Test]
-		[TestCaseSource("GetByIdCollection")]
+		[TestCaseSource("GetAlbumsByIdCollection")]
 		public async Task Album_GetById(Album expectedAlbum)
 		{
 			var albums = await this.logic.Get(expectedAlbum.Id);
@@ -60,7 +60,7 @@ namespace SimpleService.Tests.IntegrationTests
 			Assert.AreEqual(expected: expectedAlbum, actual: albums);
 		}
 
-		private static IEnumerable<object> GetByIdCollection()
+		private static IEnumerable<object> GetAlbumsByIdCollection()
 		{
 			yield return new Album
 			{
