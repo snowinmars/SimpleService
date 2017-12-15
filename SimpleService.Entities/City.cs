@@ -33,14 +33,14 @@ namespace SimpleService.Entities
 			return !object.ReferenceEquals(city, null) && this.Equals(city);
 		}
 
-		protected bool Equals(City other)
-		{
-			return string.Equals(this.Name, other.Name);
-		}
-
 		public override int GetHashCode()
 		{
 			return (!object.ReferenceEquals(this.Name, null) ? this.Name.GetHashCode() : 0);
+		}
+
+		protected bool Equals(City other)
+		{
+			return string.Equals(this.Name, other.Name);
 		}
 
 		#endregion Equals

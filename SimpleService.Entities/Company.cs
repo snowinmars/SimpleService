@@ -37,13 +37,6 @@ namespace SimpleService.Entities
 			return !object.ReferenceEquals(company, null) && this.Equals(company);
 		}
 
-		protected bool Equals(Company other)
-		{
-			return string.Equals(this.Bs, other.Bs) &&
-				string.Equals(this.CatchPhrase, other.CatchPhrase) &&
-				string.Equals(this.Name, other.Name);
-		}
-
 		public override int GetHashCode()
 		{
 			unchecked
@@ -53,6 +46,13 @@ namespace SimpleService.Entities
 				hashCode = (hashCode * 397) ^ (!object.ReferenceEquals(this.Name, null) ? this.Name.GetHashCode() : 0);
 				return hashCode;
 			}
+		}
+
+		protected bool Equals(Company other)
+		{
+			return string.Equals(this.Bs, other.Bs) &&
+				string.Equals(this.CatchPhrase, other.CatchPhrase) &&
+				string.Equals(this.Name, other.Name);
 		}
 
 		#endregion Equals

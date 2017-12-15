@@ -5,13 +5,14 @@ namespace SimpleService.Entities
 {
 	public class User : IDeepClonable<User>
 	{
+		private string webSite;
+
 		public User()
 		{
 			this.Address = new Address();
 			this.Company = new Company();
 		}
 
-		private string webSite;
 		public Address Address { get; set; }
 		public Company Company { get; set; }
 		public string Email { get; set; }
@@ -72,18 +73,6 @@ namespace SimpleService.Entities
 			return !object.ReferenceEquals(user, null) && this.Equals(user);
 		}
 
-		protected bool Equals(User other)
-		{
-			return string.Equals(this.webSite, other.webSite) &&
-				Equals(this.Address, other.Address) &&
-				Equals(this.Company, other.Company) &&
-				string.Equals(this.Email, other.Email) &&
-				this.Id == other.Id &&
-				string.Equals(this.Name, other.Name) &&
-				string.Equals(this.Phone, other.Phone) &&
-				string.Equals(this.UserName, other.UserName);
-		}
-
 		public override int GetHashCode()
 		{
 			unchecked
@@ -98,6 +87,18 @@ namespace SimpleService.Entities
 				hashCode = (hashCode * 397) ^ (!object.ReferenceEquals(this.UserName, null) ? this.UserName.GetHashCode() : 0);
 				return hashCode;
 			}
+		}
+
+		protected bool Equals(User other)
+		{
+			return string.Equals(this.webSite, other.webSite) &&
+				object.Equals(this.Address, other.Address) &&
+				object.Equals(this.Company, other.Company) &&
+				string.Equals(this.Email, other.Email) &&
+				this.Id == other.Id &&
+				string.Equals(this.Name, other.Name) &&
+				string.Equals(this.Phone, other.Phone) &&
+				string.Equals(this.UserName, other.UserName);
 		}
 
 		#endregion Equals

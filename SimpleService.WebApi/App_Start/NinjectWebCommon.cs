@@ -51,18 +51,18 @@ namespace SimpleService.WebApi
 		/// <returns>The created kernel.</returns>
 		private static IKernel CreateKernel()
 		{
-			kernel = new StandardKernel();
+			NinjectWebCommon.kernel = new StandardKernel();
 			try
 			{
-				kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
-				kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
+				NinjectWebCommon.kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
+				NinjectWebCommon.kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
 
-				NinjectWebCommon.RegisterServices(kernel);
-				return kernel;
+				NinjectWebCommon.RegisterServices(NinjectWebCommon.kernel);
+				return NinjectWebCommon.kernel;
 			}
 			catch
 			{
-				kernel.Dispose();
+				NinjectWebCommon.kernel.Dispose();
 				throw;
 			}
 		}

@@ -47,15 +47,6 @@ namespace SimpleService.Entities
 			return !object.ReferenceEquals(address, null) && this.Equals(address);
 		}
 
-		protected bool Equals(Address other)
-		{
-			return Equals(this.City, other.City) &&
-				Equals(this.Geolocation, other.Geolocation) &&
-				string.Equals(this.Street, other.Street) &&
-				string.Equals(this.Suite, other.Suite) &&
-				string.Equals(this.ZipCode, other.ZipCode);
-		}
-
 		public override int GetHashCode()
 		{
 			unchecked
@@ -67,6 +58,15 @@ namespace SimpleService.Entities
 				hashCode = (hashCode * 397) ^ (!object.ReferenceEquals(this.ZipCode, null) ? this.ZipCode.GetHashCode() : 0);
 				return hashCode;
 			}
+		}
+
+		protected bool Equals(Address other)
+		{
+			return object.Equals(this.City, other.City) &&
+				object.Equals(this.Geolocation, other.Geolocation) &&
+				string.Equals(this.Street, other.Street) &&
+				string.Equals(this.Suite, other.Suite) &&
+				string.Equals(this.ZipCode, other.ZipCode);
 		}
 
 		#endregion Equals

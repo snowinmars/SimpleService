@@ -36,18 +36,18 @@ namespace SimpleService.Entities
 			return !object.ReferenceEquals(geolocation, null) && this.Equals(geolocation);
 		}
 
-		protected bool Equals(Geolocation other)
-		{
-			return this.Latitude.Equals(other.Latitude) &&
-				this.Longitude.Equals(other.Longitude);
-		}
-
 		public override int GetHashCode()
 		{
 			unchecked
 			{
 				return (this.Latitude.GetHashCode() * 397) ^ this.Longitude.GetHashCode();
 			}
+		}
+
+		protected bool Equals(Geolocation other)
+		{
+			return this.Latitude.Equals(other.Latitude) &&
+				this.Longitude.Equals(other.Longitude);
 		}
 
 		#endregion Equals

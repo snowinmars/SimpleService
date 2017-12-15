@@ -11,13 +11,13 @@ namespace SimpleService.Tests.IntegrationTests
 {
 	public class AlbumTests
 	{
+		private readonly IAlbumLogic logic;
+
 		public AlbumTests()
 		{
 			var kernel = NinjectWebCommon.GetKernel();
 			this.logic = kernel.Get<IAlbumLogic>();
 		}
-
-		private IAlbumLogic logic;
 
 		[Test]
 		public async Task Album_GetByFilter_DefaultFilter()

@@ -58,19 +58,6 @@ namespace SimpleService.Tests.IntegrationTests
 			this.AssertHashCode(this.GetNewUser, u => u.DeepClone());
 		}
 
-		protected void AssertHashCode<T>(Func<T> generate, Func<T, T> copy)
-			where T : class
-		{
-			T lhs = generate.Invoke();
-			T rhs = generate.Invoke();
-
-			Assert.IsFalse(lhs.GetHashCode() == rhs.GetHashCode());
-
-			rhs = copy.Invoke(lhs);
-
-			Assert.IsTrue(lhs.GetHashCode() == rhs.GetHashCode());
-		}
-
 		protected void AssertEquals<T>(Func<T> generate, Func<T, T> copy)
 			where T : class
 		{
@@ -93,6 +80,19 @@ namespace SimpleService.Tests.IntegrationTests
 			Assert.IsFalse(rhs.Equals(smth));
 			Assert.IsFalse(smth.Equals(lhs));
 			Assert.IsFalse(smth.Equals(rhs));
+		}
+
+		protected void AssertHashCode<T>(Func<T> generate, Func<T, T> copy)
+					where T : class
+		{
+			T lhs = generate.Invoke();
+			T rhs = generate.Invoke();
+
+			Assert.IsFalse(lhs.GetHashCode() == rhs.GetHashCode());
+
+			rhs = copy.Invoke(lhs);
+
+			Assert.IsTrue(lhs.GetHashCode() == rhs.GetHashCode());
 		}
 
 		private Address GetNewAddress()

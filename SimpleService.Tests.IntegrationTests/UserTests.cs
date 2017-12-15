@@ -11,13 +11,39 @@ namespace SimpleService.Tests.IntegrationTests
 {
 	public class UserTests
 	{
+		private readonly IUserLogic logic;
+
 		public UserTests()
 		{
 			var kernel = NinjectWebCommon.GetKernel();
 			this.logic = kernel.Get<IUserLogic>();
 		}
 
-		private IUserLogic logic;
+		[Test]
+		public async Task User_GetAlbumsById()
+		{
+			UserAndAlbumd expectedPair = UserTests.GetUserAndAlbum();
+
+			var user = await this.logic.Get(expectedPair.User.Id);
+
+			Assert.IsNotNull(user);
+
+			var albums = await this.logic.GetAlbums(user.Id);
+
+			Assert.AreEqual(expected: expectedPair.User, actual: user);
+
+			foreach (var pair in from album in albums
+								 from expectedAlbum in expectedPair.Albums
+								 where album.Id == expectedAlbum.Id
+								 select new
+								 {
+									 Album = album,
+									 ExpectedAlbum = expectedAlbum,
+								 })
+			{
+				Assert.AreEqual(expected: pair.ExpectedAlbum, actual: pair.Album);
+			}
+		}
 
 		[Test]
 		public async Task User_GetByFilter_AddressCityNameContains()
@@ -170,32 +196,6 @@ namespace SimpleService.Tests.IntegrationTests
 			Assert.AreEqual(expected: expectedUser, actual: user);
 		}
 
-		[Test]
-		public async Task User_GetAlbumsById()
-		{
-			UserAndAlbumd expectedPair = UserTests.GetUserAndAlbum();
-
-			var user = await this.logic.Get(expectedPair.User.Id);
-
-			Assert.IsNotNull(user);
-
-			var albums = await this.logic.GetAlbums(user.Id);
-
-			Assert.AreEqual(expected: expectedPair.User, actual: user);
-
-			foreach (var pair in from album in albums
-								 from expectedAlbum in expectedPair.Albums
-								 where album.Id == expectedAlbum.Id
-								 select new
-								 {
-									 Album = album,
-									 ExpectedAlbum = expectedAlbum,
-								 })
-			{
-				Assert.AreEqual(expected: pair.ExpectedAlbum, actual: pair.Album);
-			}
-		}
-
 		private static UserAndAlbumd GetUserAndAlbum()
 		{
 			var expectedPair = new UserAndAlbumd
@@ -295,17 +295,6 @@ namespace SimpleService.Tests.IntegrationTests
 			return expectedPair;
 		}
 
-		private class UserAndAlbumd
-		{
-			public UserAndAlbumd()
-			{
-				this.Albums = new List<Album>();
-			}
-
-			public User User { get; set; }
-			public IList<Album> Albums { get; private set; }
-		}
-
 		private static IEnumerable<object> GetUsersByIdCollection()
 		{
 			yield return new User
@@ -369,6 +358,17 @@ namespace SimpleService.Tests.IntegrationTests
 					Bs = "revolutionize end-to-end systems",
 				}
 			};
+		}
+
+		private class UserAndAlbumd
+		{
+			public UserAndAlbumd()
+			{
+				this.Albums = new List<Album>();
+			}
+
+			public IList<Album> Albums { get; private set; }
+			public User User { get; set; }
 		}
 	}
 }

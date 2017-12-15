@@ -1,9 +1,6 @@
-﻿using System;
+﻿using SimpleService.Entities;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SimpleService.Entities;
 
 namespace SimpleService.Dao
 {
@@ -31,8 +28,8 @@ namespace SimpleService.Dao
 
 		internal static User Map(InternalEntities.User internalUser)
 		{
-			var address = Map(internalUser.Address);
-			var company = Map(internalUser.Company);
+			var address = Mapper.Map(internalUser.Address);
+			var company = Mapper.Map(internalUser.Company);
 
 			return new User
 			{
@@ -73,7 +70,7 @@ namespace SimpleService.Dao
 				Name = internalAddress.City,
 			};
 
-			var geolocation = Map(internalAddress.Geo);
+			var geolocation = Mapper.Map(internalAddress.Geo);
 
 			return new Address
 			{

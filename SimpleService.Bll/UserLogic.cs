@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SimpleService.Bll.Interfaces;
+﻿using SimpleService.Bll.Interfaces;
 using SimpleService.Dao.Interfaces;
 using SimpleService.Entities;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SimpleService.Bll
 {
@@ -20,21 +17,21 @@ namespace SimpleService.Bll
 			this.DefaultFilter = user => true;
 		}
 
+		public Func<User, bool> DefaultFilter { get; }
+
 		public Task<User> Get(int id)
 		{
 			return this.dao.Get(id);
 		}
 
-		public Func<User, bool> DefaultFilter { get; }
+		public Task<IEnumerable<User>> Get(Func<User, bool> filter)
+		{
+			return this.dao.Get(filter);
+		}
 
 		public Task<IEnumerable<Album>> GetAlbums(int userId)
 		{
 			return this.dao.GetAlbums(userId);
-		}
-
-		public Task<IEnumerable<User>> Get(Func<User, bool> filter)
-		{
-			return this.dao.Get(filter);
 		}
 	}
 }

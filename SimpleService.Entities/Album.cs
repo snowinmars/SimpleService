@@ -37,13 +37,6 @@ namespace SimpleService.Entities
 			return !object.ReferenceEquals(album, null) && this.Equals(album);
 		}
 
-		protected bool Equals(Album other)
-		{
-			return this.Id == other.Id &&
-				string.Equals(this.Title, other.Title) &&
-				this.UserId == other.UserId;
-		}
-
 		public override int GetHashCode()
 		{
 			unchecked
@@ -53,6 +46,13 @@ namespace SimpleService.Entities
 				hashCode = (hashCode * 397) ^ this.UserId;
 				return hashCode;
 			}
+		}
+
+		protected bool Equals(Album other)
+		{
+			return this.Id == other.Id &&
+				string.Equals(this.Title, other.Title) &&
+				this.UserId == other.UserId;
 		}
 
 		#endregion Equals
