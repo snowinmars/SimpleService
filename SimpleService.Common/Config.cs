@@ -9,8 +9,9 @@ namespace SimpleService.Common
     public static class Config
     {
 	    public const string UrlRegex = @"(https?:\/\/(www\.)?)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)";
+	    public const string EmailRegex = @".*\@.*\..*";
 
-	    public static class Url
+		public static class Url
 	    {
 		    public static string AlbumByIdFormat = "http://jsonplaceholder.typicode.com/albums/{0}";
 

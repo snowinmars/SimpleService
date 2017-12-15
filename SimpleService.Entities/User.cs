@@ -7,6 +7,7 @@ namespace SimpleService.Entities
 	public class User : IDeepClonable<User>
 	{
 		private string webSite;
+		private string email;
 
 		public User()
 		{
@@ -16,7 +17,23 @@ namespace SimpleService.Entities
 
 		public Address Address { get; set; }
 		public Company Company { get; set; }
-		public string Email { get; set; }
+
+		public string Email
+		{
+			get { return this.email; }
+			set
+			{
+				const string emailRegex = Config.EmailRegex;
+
+				if (!Regex.IsMatch(value, emailRegex, RegexOptions.IgnoreCase | RegexOptions.CultureInvariant))
+				{
+					throw new InvalidOperationException($"{value} is not email");
+				}
+
+				this.email = value;
+			}
+		}
+
 		public int Id { get; set; }
 		public string Name { get; set; }
 		public string Phone { get; set; }
