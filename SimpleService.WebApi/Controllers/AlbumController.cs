@@ -17,19 +17,21 @@ namespace SimpleService.WebApi.Controllers
 		}
 
 		// GET: api/Album
+		[HttpGet]
 		public async Task<IEnumerable<string>> Get()
 		{
 			var albums = await this.logic.GetAsync(this.logic.DefaultFilter);
 
-			return albums.Select(JsonConvert.SerializeObject).ToList();
+			return albums.Select(a => JsonConvert.SerializeObject(a, Formatting.Indented)).ToList();
 		}
 
 		// GET: api/Album/5
-		public string Get(int id)
+		[HttpGet]
+		public async Task<string> Get(int id)
 		{
 			var album = this.logic.GetAsync(id);
 
-			return JsonConvert.SerializeObject(album);
+			return JsonConvert.SerializeObject(await album, Formatting.Indented);
 		}
 	}
 }
