@@ -1,14 +1,11 @@
-﻿using Newtonsoft.Json;
-using SimpleService.Bll.Interfaces;
-using System.Collections.Generic;
-using System.Linq;
+﻿using SimpleService.Bll.Interfaces;
 using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace SimpleService.WebApi.Controllers
 {
-	[RoutePrefix("api/user")]
-	public class UserController : ApiController
+	[RoutePrefix("api/v1/users")]
+	public class UserController : BaseController
 	{
 		private readonly IUserLogic logic;
 
@@ -19,11 +16,11 @@ namespace SimpleService.WebApi.Controllers
 
 		// GET: api/User
 		[HttpGet]
-		public async Task<IEnumerable<string>> Get()
+		public async Task<string> Get()
 		{
-			var users = await this.logic.GetAsync(this.logic.DefaultFilter);
+			var users = this.logic.GetAsync(this.logic.DefaultFilter);
 
-			return users.Select(u => JsonConvert.SerializeObject(u, Formatting.Indented)).ToList();
+			return this.Serialize(await users);
 		}
 
 		// GET: api/User/5
@@ -32,17 +29,17 @@ namespace SimpleService.WebApi.Controllers
 		{
 			var user = this.logic.GetAsync(id);
 
-			return JsonConvert.SerializeObject(await user, Formatting.Indented);
+			return this.Serialize(await user);
 		}
 
 		// GET: api/User/GetAlbums/5
 		[HttpGet]
 		[Route("getAlbums/{userId}")]
-		public async Task<IEnumerable<string>> GetAlbums(int userId)
+		public async Task<string> GetAlbums(int userId)
 		{
-			var albums = await this.logic.GetAlbumsAsync(userId);
+			var albums = this.logic.GetAlbumsAsync(userId);
 
-			return albums.Select(a => JsonConvert.SerializeObject(a, Formatting.Indented)).ToList();
+			return this.Serialize(await albums);
 		}
 	}
 }

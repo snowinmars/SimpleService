@@ -1,13 +1,11 @@
-﻿using Newtonsoft.Json;
-using SimpleService.Bll.Interfaces;
-using System.Collections.Generic;
-using System.Linq;
+﻿using SimpleService.Bll.Interfaces;
 using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace SimpleService.WebApi.Controllers
 {
-	public class AlbumController : ApiController
+	[RoutePrefix("api/v1/albums")]
+	public class AlbumController : BaseController
 	{
 		private readonly IAlbumLogic logic;
 
@@ -18,20 +16,20 @@ namespace SimpleService.WebApi.Controllers
 
 		// GET: api/Album
 		[HttpGet]
-		public async Task<IEnumerable<string>> Get()
+		public async Task<string> Get()
 		{
-			var albums = await this.logic.GetAsync(this.logic.DefaultFilter);
+			var albums = this.logic.GetAsync(this.logic.DefaultFilter);
 
-			return albums.Select(a => JsonConvert.SerializeObject(a, Formatting.Indented)).ToList();
+			return this.Serialize(await albums);
 		}
 
 		// GET: api/Album/5
 		[HttpGet]
 		public async Task<string> Get(int id)
 		{
-			var album = this.logic.GetAsync(id);
+			var album = await this.logic.GetAsync(id);
 
-			return JsonConvert.SerializeObject(await album, Formatting.Indented);
+			return this.Serialize(album);
 		}
 	}
 }
