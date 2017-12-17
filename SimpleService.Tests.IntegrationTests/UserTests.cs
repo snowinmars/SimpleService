@@ -24,11 +24,11 @@ namespace SimpleService.Tests.IntegrationTests
 		{
 			UserAndAlbumd expectedPair = UserTests.GetUserAndAlbum();
 
-			var user = await this.logic.Get(expectedPair.User.Id);
+			var user = await this.logic.GetAsync(expectedPair.User.Id);
 
 			Assert.IsNotNull(user);
 
-			var albums = await this.logic.GetAlbums(user.Id);
+			var albums = await this.logic.GetAlbumsAsync(user.Id);
 
 			Assert.AreEqual(expected: expectedPair.User, actual: user);
 
@@ -48,7 +48,7 @@ namespace SimpleService.Tests.IntegrationTests
 		[Test]
 		public async Task User_GetByFilter_AddressCityNameContains()
 		{
-			var users = await this.logic.Get(u => u.Address.City.Name.Contains(" "));
+			var users = await this.logic.GetAsync(u => u.Address.City.Name.Contains(" "));
 
 			Assert.IsNotNull(users);
 
@@ -58,7 +58,7 @@ namespace SimpleService.Tests.IntegrationTests
 		[Test]
 		public async Task User_GetByFilter_AddressGeolocationLatitude()
 		{
-			var users = await this.logic.Get(u => u.Address.Geolocation.Latitude < -30);
+			var users = await this.logic.GetAsync(u => u.Address.Geolocation.Latitude < -30);
 
 			Assert.IsNotNull(users);
 
@@ -68,7 +68,7 @@ namespace SimpleService.Tests.IntegrationTests
 		[Test]
 		public async Task User_GetByFilter_AddressGeolocationLongitude()
 		{
-			var users = await this.logic.Get(u => u.Address.Geolocation.Longitude > 60);
+			var users = await this.logic.GetAsync(u => u.Address.Geolocation.Longitude > 60);
 
 			Assert.IsNotNull(users);
 
@@ -78,7 +78,7 @@ namespace SimpleService.Tests.IntegrationTests
 		[Test]
 		public async Task User_GetByFilter_AddressStreet()
 		{
-			var users = await this.logic.Get(u => u.Address.Street.Split(' ').Any(s => s.Length < 5));
+			var users = await this.logic.GetAsync(u => u.Address.Street.Split(' ').Any(s => s.Length < 5));
 
 			Assert.IsNotNull(users);
 
@@ -88,7 +88,7 @@ namespace SimpleService.Tests.IntegrationTests
 		[Test]
 		public async Task User_GetByFilter_AddressSuiteContains()
 		{
-			var users = await this.logic.Get(u => u.Address.Suite.Contains("."));
+			var users = await this.logic.GetAsync(u => u.Address.Suite.Contains("."));
 
 			Assert.IsNotNull(users);
 
@@ -98,7 +98,7 @@ namespace SimpleService.Tests.IntegrationTests
 		[Test]
 		public async Task User_GetByFilter_AddressZipCodeDoesntContains()
 		{
-			var users = await this.logic.Get(u => !u.Address.ZipCode.Contains("-"));
+			var users = await this.logic.GetAsync(u => !u.Address.ZipCode.Contains("-"));
 
 			Assert.IsNotNull(users);
 
@@ -108,7 +108,7 @@ namespace SimpleService.Tests.IntegrationTests
 		[Test]
 		public async Task User_GetByFilter_CompanyBsContains()
 		{
-			var users = await this.logic.Get(u => u.Company.Bs.Contains("-"));
+			var users = await this.logic.GetAsync(u => u.Company.Bs.Contains("-"));
 
 			Assert.IsNotNull(users);
 
@@ -118,7 +118,7 @@ namespace SimpleService.Tests.IntegrationTests
 		[Test]
 		public async Task User_GetByFilter_CompanyCatchPhraseContains()
 		{
-			var users = await this.logic.Get(u => u.Company.CatchPhrase.Contains("-"));
+			var users = await this.logic.GetAsync(u => u.Company.CatchPhrase.Contains("-"));
 
 			Assert.IsNotNull(users);
 
@@ -128,7 +128,7 @@ namespace SimpleService.Tests.IntegrationTests
 		[Test]
 		public async Task User_GetByFilter_CompanyNameContains()
 		{
-			var users = await this.logic.Get(u => u.Company.Name.Contains("LLC"));
+			var users = await this.logic.GetAsync(u => u.Company.Name.Contains("LLC"));
 
 			Assert.IsNotNull(users);
 
@@ -138,7 +138,7 @@ namespace SimpleService.Tests.IntegrationTests
 		[Test]
 		public async Task User_GetByFilter_DefaultFilter()
 		{
-			var users = await this.logic.Get(this.logic.DefaultFilter);
+			var users = await this.logic.GetAsync(this.logic.DefaultFilter);
 
 			Assert.IsNotNull(users);
 
@@ -148,7 +148,7 @@ namespace SimpleService.Tests.IntegrationTests
 		[Test]
 		public async Task User_GetByFilter_EmailContains()
 		{
-			var users = await this.logic.Get(u => u.Email.Contains("net"));
+			var users = await this.logic.GetAsync(u => u.Email.Contains("net"));
 
 			Assert.IsNotNull(users);
 
@@ -158,7 +158,7 @@ namespace SimpleService.Tests.IntegrationTests
 		[Test]
 		public async Task User_GetByFilter_PhoneStartWith()
 		{
-			var users = await this.logic.Get(u => u.Phone.StartsWith("("));
+			var users = await this.logic.GetAsync(u => u.Phone.StartsWith("("));
 
 			Assert.IsNotNull(users);
 
@@ -168,7 +168,7 @@ namespace SimpleService.Tests.IntegrationTests
 		[Test]
 		public async Task User_GetByFilter_UserNameLength()
 		{
-			var users = await this.logic.Get(u => u.UserName.Length < 5);
+			var users = await this.logic.GetAsync(u => u.UserName.Length < 5);
 
 			Assert.IsNotNull(users);
 
@@ -178,7 +178,7 @@ namespace SimpleService.Tests.IntegrationTests
 		[Test]
 		public async Task User_GetByFilter_WebSiteContains()
 		{
-			var users = await this.logic.Get(u => u.WebSite.Contains("info"));
+			var users = await this.logic.GetAsync(u => u.WebSite.Contains("info"));
 
 			Assert.IsNotNull(users);
 
@@ -189,7 +189,7 @@ namespace SimpleService.Tests.IntegrationTests
 		[TestCaseSource("GetUsersByIdCollection")]
 		public async Task User_GetById(User expectedUser)
 		{
-			var user = await this.logic.Get(expectedUser.Id);
+			var user = await this.logic.GetAsync(expectedUser.Id);
 
 			Assert.IsNotNull(user);
 

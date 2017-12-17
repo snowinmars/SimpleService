@@ -19,24 +19,24 @@ namespace SimpleService.Dao
 			this.httpClient = new HttpClient();
 		}
 
-		public async Task<Album> Get(int id)
+		public async Task<Album> GetAsync(int id)
 		{
 			string getAlbumByIdUrl = string.Format(Config.Url.AlbumByIdFormat, id);
 
-			var urlData = await this.httpClient.GetStringAsync(getAlbumByIdUrl);
+			var urlData = this.httpClient.GetStringAsync(getAlbumByIdUrl);
 
-			var album = JsonConvert.DeserializeObject<InternalEntities.Album>(urlData);
+			var album = JsonConvert.DeserializeObject<InternalEntities.Album>(await urlData);
 
 			return Mapper.Map(album);
 		}
 
-		public async Task<IEnumerable<Album>> Get(Func<Album, bool> filter)
+		public async Task<IEnumerable<Album>> GetAsync(Func<Album, bool> filter)
 		{
 			string getAllAlbumsUrl = Config.Url.Albums;
 
-			var urlData = await this.httpClient.GetStringAsync(getAllAlbumsUrl);
+			var urlData = this.httpClient.GetStringAsync(getAllAlbumsUrl);
 
-			var collection = JsonConvert.DeserializeObject<IEnumerable<InternalEntities.Album>>(urlData);
+			var collection = JsonConvert.DeserializeObject<IEnumerable<InternalEntities.Album>>(await urlData);
 
 			return Mapper.Map(collection).Where(filter.Invoke);
 		}

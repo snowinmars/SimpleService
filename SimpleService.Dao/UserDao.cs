@@ -19,35 +19,35 @@ namespace SimpleService.Dao
 			this.httpClient = new HttpClient();
 		}
 
-		public async Task<User> Get(int id)
+		public async Task<User> GetAsync(int id)
 		{
 			string getUserByIdUrl = string.Format(Config.Url.UserByIdFormat, id);
 
-			var urlData = await this.httpClient.GetStringAsync(getUserByIdUrl);
+			var urlData = this.httpClient.GetStringAsync(getUserByIdUrl);
 
-			var collection = JsonConvert.DeserializeObject<InternalEntities.User>(urlData);
+			var collection = JsonConvert.DeserializeObject<InternalEntities.User>(await urlData);
 
 			return Mapper.Map(collection);
 		}
 
-		public async Task<IEnumerable<User>> Get(Func<User, bool> filter)
+		public async Task<IEnumerable<User>> GetAsync(Func<User, bool> filter)
 		{
 			string getAllUsersUrl = Config.Url.Users;
 
-			var urlData = await this.httpClient.GetStringAsync(getAllUsersUrl);
+			var urlData = this.httpClient.GetStringAsync(getAllUsersUrl);
 
-			var collection = JsonConvert.DeserializeObject<IEnumerable<InternalEntities.User>>(urlData);
+			var collection = JsonConvert.DeserializeObject<IEnumerable<InternalEntities.User>>(await urlData);
 
 			return Mapper.Map(collection).Where(filter.Invoke);
 		}
 
-		public async Task<IEnumerable<Album>> GetAlbums(int userId)
+		public async Task<IEnumerable<Album>> GetAlbumsAsync(int userId)
 		{
 			string getAllAlbumsForUserUrl = string.Format(Config.Url.AlbumByUserIdFormat, userId);
 
-			var urlData = await this.httpClient.GetStringAsync(getAllAlbumsForUserUrl);
+			var urlData = this.httpClient.GetStringAsync(getAllAlbumsForUserUrl);
 
-			var collection = JsonConvert.DeserializeObject<IEnumerable<InternalEntities.Album>>(urlData);
+			var collection = JsonConvert.DeserializeObject<IEnumerable<InternalEntities.Album>>(await urlData);
 
 			return Mapper.Map(collection);
 		}

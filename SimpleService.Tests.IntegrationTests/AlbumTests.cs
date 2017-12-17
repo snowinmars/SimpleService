@@ -22,7 +22,7 @@ namespace SimpleService.Tests.IntegrationTests
 		[Test]
 		public async Task Album_GetByFilter_DefaultFilter()
 		{
-			var albums = await this.logic.Get(this.logic.DefaultFilter);
+			var albums = await this.logic.GetAsync(this.logic.DefaultFilter);
 
 			Assert.IsNotNull(albums);
 
@@ -32,7 +32,7 @@ namespace SimpleService.Tests.IntegrationTests
 		[Test]
 		public async Task Album_GetByFilter_TitleLength()
 		{
-			var albums = await this.logic.Get(u => u.Title.Length < 21);
+			var albums = await this.logic.GetAsync(u => u.Title.Length < 21);
 
 			Assert.IsNotNull(albums);
 
@@ -42,7 +42,7 @@ namespace SimpleService.Tests.IntegrationTests
 		[Test]
 		public async Task Album_GetByFilter_UserId()
 		{
-			var albums = await this.logic.Get(u => u.UserId == 1);
+			var albums = await this.logic.GetAsync(u => u.UserId == 1);
 
 			Assert.IsNotNull(albums);
 
@@ -53,7 +53,7 @@ namespace SimpleService.Tests.IntegrationTests
 		[TestCaseSource("GetAlbumsByIdCollection")]
 		public async Task Album_GetById(Album expectedAlbum)
 		{
-			var albums = await this.logic.Get(expectedAlbum.Id);
+			var albums = await this.logic.GetAsync(expectedAlbum.Id);
 
 			Assert.IsNotNull(albums);
 

@@ -19,14 +19,14 @@ namespace SimpleService.Bll
 
 		public Func<Album, bool> DefaultFilter { get; }
 
-		public Task<Album> Get(int id)
+		public Task<Album> GetAsync(int id)
 		{
-			return this.albumDao.Get(id);
+			return this.albumDao.GetAsync(id);
 		}
 
-		public Task<IEnumerable<Album>> Get(Func<Album, bool> filter)
+		public Task<IEnumerable<Album>> GetAsync(Func<Album, bool> filter)
 		{
-			return this.albumDao.Get(filter);
+			return this.albumDao.GetAsync(filter);
 		}
 	}
 }

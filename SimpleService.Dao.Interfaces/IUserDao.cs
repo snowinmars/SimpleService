@@ -6,6 +6,6 @@ namespace SimpleService.Dao.Interfaces
 {
 	public interface IUserDao : IDao<User>
 	{
-		Task<IEnumerable<Album>> GetAlbums(int userId);
+		Task<IEnumerable<Album>> GetAlbumsAsync(int userId);
 	}
 }
