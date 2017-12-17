@@ -6,6 +6,8 @@ using SimpleService.Ninject;
 using SimpleService.WebApi;
 using System;
 using System.Web;
+using System.Web.Http;
+using Ninject.Web.WebApi;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(NinjectWebCommon), "Stop")]
@@ -14,7 +16,7 @@ namespace SimpleService.WebApi
 {
 	public static class NinjectWebCommon
 	{
-		private static readonly Bootstrapper bootstrapper = new Bootstrapper();
+		private static readonly Bootstrapper Bootstrapper = new Bootstrapper();
 
 		private static IKernel kernel;
 
@@ -22,7 +24,7 @@ namespace SimpleService.WebApi
 		{
 			if (NinjectWebCommon.kernel == default(IKernel))
 			{
-				NinjectWebCommon.CreateKernel();
+				NinjectWebCommon.kernel = NinjectWebCommon.CreateKernel();
 			}
 
 			return NinjectWebCommon.kernel;
@@ -35,7 +37,8 @@ namespace SimpleService.WebApi
 		{
 			DynamicModuleUtility.RegisterModule(typeof(OnePerRequestHttpModule));
 			DynamicModuleUtility.RegisterModule(typeof(NinjectHttpModule));
-			NinjectWebCommon.bootstrapper.Initialize(NinjectWebCommon.CreateKernel);
+
+			NinjectWebCommon.Bootstrapper.Initialize(NinjectWebCommon.GetKernel);
 		}
 
 		/// <summary>
@@ -43,7 +46,7 @@ namespace SimpleService.WebApi
 		/// </summary>
 		public static void Stop()
 		{
-			NinjectWebCommon.bootstrapper.ShutDown();
+			NinjectWebCommon.Bootstrapper.ShutDown();
 		}
 
 		/// <summary>
@@ -59,8 +62,9 @@ namespace SimpleService.WebApi
 				NinjectWebCommon.kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
 
 				NinjectWebCommon.RegisterServices(NinjectWebCommon.kernel);
+				GlobalConfiguration.Configuration.DependencyResolver = new NinjectDependencyResolver(NinjectWebCommon.kernel);
 				return NinjectWebCommon.kernel;
-			}
+		}	
 			catch
 			{
 				NinjectWebCommon.kernel.Dispose();
