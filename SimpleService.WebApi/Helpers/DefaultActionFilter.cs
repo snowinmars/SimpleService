@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net;
+using System.Net.Http;
 using SimpleService.WebApi.Controllers;
 using System.Net.Http.Headers;
 using System.Web.Http.Controllers;
@@ -35,8 +36,10 @@ namespace SimpleService.WebApi
 					throw new ArgumentOutOfRangeException();
 			}
 
-			actionExecutedContext.Response.Content.Headers.ContentType = new MediaTypeHeaderValue(headerContentType);
-			actionExecutedContext.Response.StatusCode = HttpStatusCode.OK;
+			if (actionExecutedContext.Response?.Content != null)
+			{
+				actionExecutedContext.Response.Content.Headers.ContentType = new MediaTypeHeaderValue(headerContentType);
+			}
 		}
 
 		public override void OnActionExecuting(HttpActionContext actionContext)

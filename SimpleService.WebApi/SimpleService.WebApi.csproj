@@ -139,9 +139,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ResponseType.cs" />
     <Compile Include="Helpers\ContentType.cs" />
     <Compile Include="Helpers\DefaultActionFilter.cs" />
-    <Compile Include="Helpers\DefaultErrorFilter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
