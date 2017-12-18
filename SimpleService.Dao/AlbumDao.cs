@@ -16,7 +16,10 @@ namespace SimpleService.Dao
 
 		public AlbumDao()
 		{
-			this.httpClient = new HttpClient();
+			this.httpClient = new HttpClient
+			{
+				Timeout = TimeSpan.FromSeconds(5),
+			};
 		}
 
 		public async Task<Album> GetAsync(int id)
