@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
+using SimpleService.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
-using SimpleService.Entities;
 using YAXLib;
 using Formatting = Newtonsoft.Json.Formatting;
 

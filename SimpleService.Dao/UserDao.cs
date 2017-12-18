@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using SimpleService.Common;
 using SimpleService.Dao.Interfaces;
 using SimpleService.Entities;
 using System;
@@ -6,7 +7,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using SimpleService.Common;
 
 namespace SimpleService.Dao
 {
@@ -17,6 +17,19 @@ namespace SimpleService.Dao
 		public UserDao()
 		{
 			this.httpClient = new HttpClient();
+		}
+
+		public async Task<Page<Album>> GetAlbumsAsync(int userId, PageInfo pageInfo)
+		{
+			string getAllAlbumsForUserUrl = string.Format(Config.Url.AlbumByUserIdFormat, userId);
+
+			var urlData = this.httpClient.GetStringAsync(getAllAlbumsForUserUrl);
+
+			var collection = JsonConvert.DeserializeObject<IEnumerable<InternalEntities.Album>>(await urlData);
+
+			var albums = Mapper.Map(collection).ToList();
+
+			return Page<Album>.Pagify(pageInfo, albums);
 		}
 
 		public async Task<User> GetAsync(int id)
@@ -41,19 +54,6 @@ namespace SimpleService.Dao
 			var users = Mapper.Map(collection).Where(filter.Invoke).ToList();
 
 			return Page<User>.Pagify(pageInfo, users);
-		}
-
-		public async Task<Page<Album>> GetAlbumsAsync(int userId, PageInfo pageInfo)
-		{
-			string getAllAlbumsForUserUrl = string.Format(Config.Url.AlbumByUserIdFormat, userId);
-
-			var urlData = this.httpClient.GetStringAsync(getAllAlbumsForUserUrl);
-
-			var collection = JsonConvert.DeserializeObject<IEnumerable<InternalEntities.Album>>(await urlData);
-
-			var albums = Mapper.Map(collection).ToList();
-
-			return Page<Album>.Pagify(pageInfo, albums);
 		}
 	}
 }

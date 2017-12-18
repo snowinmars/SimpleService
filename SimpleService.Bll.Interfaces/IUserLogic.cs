@@ -1,5 +1,4 @@
 ﻿using SimpleService.Entities;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace SimpleService.Bll.Interfaces

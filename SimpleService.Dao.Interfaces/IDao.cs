@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using SimpleService.Entities;
+using System;
 using System.Threading.Tasks;
-using SimpleService.Entities;
 
 namespace SimpleService.Dao.Interfaces
 {

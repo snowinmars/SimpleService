@@ -1,12 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using SimpleService.Common;
 
 namespace SimpleService.Entities
 {
+	public static class PageInfoExtension
+	{
+		public static IEnumerable<T> Page<T>(this IEnumerable<T> collection, PageInfo pageInfo)
+		{
+			return collection.Skip(pageInfo.PageNumber * pageInfo.PageSize).Take(pageInfo.PageSize);
+		}
+	}
+
 	public class PageInfo
 	{
-		public PageInfo() : this(0, 10)
+		public PageInfo() : this(0, Config.DefaultPageSize)
 		{
 		}
 
@@ -18,13 +26,5 @@ namespace SimpleService.Entities
 
 		public int PageNumber { get; set; }
 		public int PageSize { get; set; }
-	}
-
-	public static class PageInfoExtension
-	{
-		public static IEnumerable<T> Page<T>(this IEnumerable<T> collection, PageInfo pageInfo)
-		{
-			return collection.Skip(pageInfo.PageNumber * pageInfo.PageSize).Take(pageInfo.PageSize);
-		}
 	}
 }

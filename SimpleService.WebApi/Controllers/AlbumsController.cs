@@ -1,7 +1,7 @@
 ﻿using SimpleService.Bll.Interfaces;
+using SimpleService.Entities;
 using System.Threading.Tasks;
 using System.Web.Http;
-using SimpleService.Entities;
 
 namespace SimpleService.WebApi.Controllers
 {

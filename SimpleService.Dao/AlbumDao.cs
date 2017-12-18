@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using SimpleService.Common;
 using SimpleService.Dao.Interfaces;
 using SimpleService.Entities;
 using System;
@@ -6,7 +7,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using SimpleService.Common;
 
 namespace SimpleService.Dao
 {

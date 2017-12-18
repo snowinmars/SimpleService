@@ -1,7 +1,7 @@
-﻿using System.Net.Http.Headers;
+﻿using SimpleService.WebApi.Controllers;
+using System.Net.Http.Headers;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
-using SimpleService.WebApi.Controllers;
 
 namespace SimpleService.WebApi
 {

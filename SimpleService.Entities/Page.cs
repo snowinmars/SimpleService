@@ -1,30 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SimpleService.Entities
 {
 	public class Page<T>
 	{
-		public IEnumerable<T> Result { get; set; }
-		public int PageNumber { get; set; }
-		public int PageSize { get; set; }
-		public int TotalItems { get; set; }
-		public int TotalPages
-		{
-			get
-			{
-				if (this.PageSize == 0)
-				{
-					return int.MaxValue / 2;
-				}
-
-				return (int) Math.Ceiling((decimal) this.TotalItems / this.PageSize);
-			}
-		}
-		
 		public Page() : this(new PageInfo())
 		{
 		}
@@ -40,6 +21,24 @@ namespace SimpleService.Entities
 
 			this.Result = collection;
 			this.TotalItems = totalItems;
+		}
+
+		public int PageNumber { get; set; }
+		public int PageSize { get; set; }
+		public IEnumerable<T> Result { get; set; }
+		public int TotalItems { get; set; }
+
+		public int TotalPages
+		{
+			get
+			{
+				if (this.PageSize == 0)
+				{
+					return int.MaxValue / 2;
+				}
+
+				return (int)Math.Ceiling((decimal)this.TotalItems / this.PageSize);
+			}
 		}
 
 		public static Page<T> Pagify(PageInfo pageInfo, ICollection<T> collection)

@@ -1,9 +1,9 @@
-﻿using System;
-using Ninject;
+﻿using Ninject;
 using NUnit.Framework;
 using SimpleService.Bll.Interfaces;
 using SimpleService.Entities;
 using SimpleService.WebApi;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;

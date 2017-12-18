@@ -2,7 +2,6 @@
 using SimpleService.Dao.Interfaces;
 using SimpleService.Entities;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace SimpleService.Bll
@@ -19,6 +18,11 @@ namespace SimpleService.Bll
 
 		public Func<User, bool> DefaultFilter { get; }
 
+		public Task<Page<Album>> GetAlbumsAsync(int userId, PageInfo pageInfo)
+		{
+			return this.dao.GetAlbumsAsync(userId, pageInfo);
+		}
+
 		public Task<User> GetAsync(int id)
 		{
 			return this.dao.GetAsync(id);
@@ -27,11 +31,6 @@ namespace SimpleService.Bll
 		public Task<Page<User>> GetAsync(Func<User, bool> filter, PageInfo pageInfo)
 		{
 			return this.dao.GetAsync(filter, pageInfo);
-		}
-
-		public Task<Page<Album>> GetAlbumsAsync(int userId, PageInfo pageInfo)
-		{
-			return this.dao.GetAlbumsAsync(userId, pageInfo);
 		}
 	}
 }
