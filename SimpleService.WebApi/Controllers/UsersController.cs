@@ -33,10 +33,10 @@ namespace SimpleService.WebApi.Controllers
 			return this.Serialize(await user);
 		}
 
-		// GET: api/Users/GetAlbums/5
+		// GET: api/Users/5/Albums/
 		[HttpGet]
-		[Route("getAlbums/{userId}")]
-		public async Task<string> GetAlbums(int userId, [FromUri]PageInfo pageInfo)
+		[Route("{userId}/albums")]
+		public async Task<string> Albums(int userId, [FromUri]PageInfo pageInfo)
 		{
 			var albums = this.logic.GetAlbumsAsync(userId, pageInfo);
 
