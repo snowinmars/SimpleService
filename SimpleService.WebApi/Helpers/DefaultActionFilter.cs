@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using SimpleService.WebApi.Controllers;
 using System.Net.Http.Headers;
 using System.Web.Http.Controllers;
@@ -35,6 +36,7 @@ namespace SimpleService.WebApi
 			}
 
 			actionExecutedContext.Response.Content.Headers.ContentType = new MediaTypeHeaderValue(headerContentType);
+			actionExecutedContext.Response.StatusCode = HttpStatusCode.OK;
 		}
 
 		public override void OnActionExecuting(HttpActionContext actionContext)
@@ -53,14 +55,16 @@ namespace SimpleService.WebApi
 		{
 			ContentType contentType;
 
-			if (actionContext.Request.Headers.Accept.Contains(new MediaTypeWithQualityHeaderValue("application/xml")))
+			if (actionContext.Request.Headers.Accept.Contains(new MediaTypeWithQualityHeaderValue("application/xml")) ||
+			    actionContext.Request.Headers.Accept.Contains(new MediaTypeWithQualityHeaderValue("text/xml")))
 			{
 				contentType = ContentType.Xml;
 			}
 			else
 			{
 				if (actionContext.Request.Content.Headers.ContentType != null &&
-					actionContext.Request.Content.Headers.ContentType.MediaType == "application/xml")
+					(actionContext.Request.Content.Headers.ContentType.MediaType == "application/xml" ||
+					 actionContext.Request.Content.Headers.ContentType.MediaType == "text/xml"))
 				{
 					contentType = ContentType.Xml;
 				}

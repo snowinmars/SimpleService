@@ -10,11 +10,12 @@ using Formatting = Newtonsoft.Json.Formatting;
 namespace SimpleService.WebApi.Controllers
 {
 	[DefaultActionFilter]
+	[DefaultErrorFilter]
 	public class BaseController : ApiController
 	{
 		public ContentType ContentType;
 		public PageInfo PageInfo;
-
+		
 		protected IEnumerable<string> JsonString<T>(IEnumerable<T> collection)
 		{
 			return collection.Select(this.JsonString).ToList();

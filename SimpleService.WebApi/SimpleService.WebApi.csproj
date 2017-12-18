@@ -141,6 +141,7 @@
     </Compile>
     <Compile Include="Helpers\ContentType.cs" />
     <Compile Include="Helpers\DefaultActionFilter.cs" />
+    <Compile Include="Helpers\DefaultErrorFilter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
