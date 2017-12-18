@@ -6,6 +6,9 @@ namespace SimpleService.Entities
 {
 	public class Page<T>
 	{
+		private int pageNumber;
+		private int pageSize;
+
 		public Page() : this(new PageInfo())
 		{
 		}
@@ -23,8 +26,35 @@ namespace SimpleService.Entities
 			this.TotalItems = totalItems;
 		}
 
-		public int PageNumber { get; set; }
-		public int PageSize { get; set; }
+		public int PageNumber
+		{
+			get { return this.pageNumber; }
+			set
+			{
+				if (value < 0)
+				{
+					throw new ArgumentOutOfRangeException($"Page number can't be less then zero. Now it equals to {value}");
+				}
+
+				this.pageNumber = value;
+			}
+		}
+
+		public int PageSize
+		{
+			get { return this.pageSize; }
+			set
+			{
+				if (value <= 0)
+				{
+					throw new ArgumentOutOfRangeException(
+						$"Page size can't be less then zero and can't be equal to zero. Now it equals to {value}");
+				}
+
+				this.pageSize = value;
+			}
+		}
+
 		public IEnumerable<T> Result { get; set; }
 		public int TotalItems { get; set; }
 
