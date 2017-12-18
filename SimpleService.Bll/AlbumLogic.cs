@@ -24,9 +24,9 @@ namespace SimpleService.Bll
 			return this.albumDao.GetAsync(id);
 		}
 
-		public Task<IEnumerable<Album>> GetAsync(Func<Album, bool> filter)
+		public Task<Page<Album>> GetAsync(Func<Album, bool> filter, PageInfo pageInfo)
 		{
-			return this.albumDao.GetAsync(filter);
+			return this.albumDao.GetAsync(filter, pageInfo);
 		}
 	}
 }

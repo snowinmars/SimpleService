@@ -6,6 +6,6 @@ namespace SimpleService.Bll.Interfaces
 {
 	public interface IUserLogic : ILogic<User>
 	{
-		Task<IEnumerable<Album>> GetAlbumsAsync(int userId);
+		Task<Page<Album>> GetAlbumsAsync(int userId, PageInfo pageInfo);
 	}
 }

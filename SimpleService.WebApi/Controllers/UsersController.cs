@@ -1,6 +1,7 @@
 ﻿using SimpleService.Bll.Interfaces;
 using System.Threading.Tasks;
 using System.Web.Http;
+using SimpleService.Entities;
 
 namespace SimpleService.WebApi.Controllers
 {
@@ -16,9 +17,9 @@ namespace SimpleService.WebApi.Controllers
 
 		// GET: api/Users
 		[HttpGet]
-		public async Task<string> Get()
+		public async Task<string> Get([FromUri]PageInfo pageInfo)
 		{
-			var users = this.logic.GetAsync(this.logic.DefaultFilter);
+			var users = this.logic.GetAsync(this.logic.DefaultFilter, pageInfo);
 
 			return this.Serialize(await users);
 		}
@@ -35,9 +36,9 @@ namespace SimpleService.WebApi.Controllers
 		// GET: api/Users/GetAlbums/5
 		[HttpGet]
 		[Route("getAlbums/{userId}")]
-		public async Task<string> GetAlbums(int userId)
+		public async Task<string> GetAlbums(int userId, [FromUri]PageInfo pageInfo)
 		{
-			var albums = this.logic.GetAlbumsAsync(userId);
+			var albums = this.logic.GetAlbumsAsync(userId, pageInfo);
 
 			return this.Serialize(await albums);
 		}

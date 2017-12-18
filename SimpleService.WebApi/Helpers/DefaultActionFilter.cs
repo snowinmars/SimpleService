@@ -9,6 +9,16 @@ namespace SimpleService.WebApi
 	{
 		public override void OnActionExecuting(HttpActionContext actionContext)
 		{
+			ContentType contentType = DefaultActionFilter.GetContentType(actionContext);
+
+			if (actionContext.ControllerContext.Controller is BaseController baseController)
+			{
+				baseController.ContentType = contentType;
+			}
+		}
+
+		private static ContentType GetContentType(HttpActionContext actionContext)
+		{
 			ContentType contentType;
 
 			if (actionContext.Request.Headers.Accept.Contains(new MediaTypeWithQualityHeaderValue("application/xml")))
@@ -18,7 +28,7 @@ namespace SimpleService.WebApi
 			else
 			{
 				if (actionContext.Request.Content.Headers.ContentType != null &&
-				    actionContext.Request.Content.Headers.ContentType.MediaType == "application/xml")
+					actionContext.Request.Content.Headers.ContentType.MediaType == "application/xml")
 				{
 					contentType = ContentType.Xml;
 				}
@@ -28,10 +38,7 @@ namespace SimpleService.WebApi
 				}
 			}
 
-			if (actionContext.ControllerContext.Controller is BaseController baseController)
-			{
-				baseController.contentType = contentType;
-			}
+			return contentType;
 		}
 	}
 }

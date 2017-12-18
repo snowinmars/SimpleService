@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using SimpleService.Entities;
 using YAXLib;
 using Formatting = Newtonsoft.Json.Formatting;
 
@@ -11,7 +12,8 @@ namespace SimpleService.WebApi.Controllers
 	[DefaultActionFilter]
 	public class BaseController : ApiController
 	{
-		public ContentType contentType;
+		public ContentType ContentType;
+		public PageInfo PageInfo;
 
 		protected IEnumerable<string> JsonString<T>(IEnumerable<T> collection)
 		{
@@ -23,34 +25,10 @@ namespace SimpleService.WebApi.Controllers
 			return JsonConvert.SerializeObject(item, Formatting.Indented);
 		}
 
-		protected string Serialize<T>(IEnumerable<T> items)
-			where T : class
-		{
-			ReturnCollection<T> c = new ReturnCollection<T>
-			{
-				Data = items,
-			};
-
-			switch (this.contentType)
-			{
-				case ContentType.None:
-					throw new InvalidOperationException();
-
-				case ContentType.Json:
-					return this.JsonString(c);
-
-				case ContentType.Xml:
-					return this.XmlString(c);
-
-				default:
-					throw new ArgumentOutOfRangeException();
-			}
-		}
-
 		protected string Serialize<T>(T item)
 			where T : class
 		{
-			switch (this.contentType)
+			switch (this.ContentType)
 			{
 				case ContentType.None:
 					throw new InvalidOperationException();

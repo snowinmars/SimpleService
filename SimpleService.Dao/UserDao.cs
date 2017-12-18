@@ -30,7 +30,7 @@ namespace SimpleService.Dao
 			return Mapper.Map(collection);
 		}
 
-		public async Task<IEnumerable<User>> GetAsync(Func<User, bool> filter)
+		public async Task<Page<User>> GetAsync(Func<User, bool> filter, PageInfo pageInfo)
 		{
 			string getAllUsersUrl = Config.Url.Users;
 
@@ -38,10 +38,12 @@ namespace SimpleService.Dao
 
 			var collection = JsonConvert.DeserializeObject<IEnumerable<InternalEntities.User>>(await urlData);
 
-			return Mapper.Map(collection).Where(filter.Invoke);
+			var users = Mapper.Map(collection).Where(filter.Invoke).ToList();
+
+			return Page<User>.Pagify(pageInfo, users);
 		}
 
-		public async Task<IEnumerable<Album>> GetAlbumsAsync(int userId)
+		public async Task<Page<Album>> GetAlbumsAsync(int userId, PageInfo pageInfo)
 		{
 			string getAllAlbumsForUserUrl = string.Format(Config.Url.AlbumByUserIdFormat, userId);
 
@@ -49,7 +51,9 @@ namespace SimpleService.Dao
 
 			var collection = JsonConvert.DeserializeObject<IEnumerable<InternalEntities.Album>>(await urlData);
 
-			return Mapper.Map(collection);
+			var albums = Mapper.Map(collection).ToList();
+
+			return Page<Album>.Pagify(pageInfo, albums);
 		}
 	}
 }

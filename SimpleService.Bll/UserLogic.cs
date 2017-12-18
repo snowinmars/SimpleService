@@ -24,14 +24,14 @@ namespace SimpleService.Bll
 			return this.dao.GetAsync(id);
 		}
 
-		public Task<IEnumerable<User>> GetAsync(Func<User, bool> filter)
+		public Task<Page<User>> GetAsync(Func<User, bool> filter, PageInfo pageInfo)
 		{
-			return this.dao.GetAsync(filter);
+			return this.dao.GetAsync(filter, pageInfo);
 		}
 
-		public Task<IEnumerable<Album>> GetAlbumsAsync(int userId)
+		public Task<Page<Album>> GetAlbumsAsync(int userId, PageInfo pageInfo)
 		{
-			return this.dao.GetAlbumsAsync(userId);
+			return this.dao.GetAlbumsAsync(userId, pageInfo);
 		}
 	}
 }

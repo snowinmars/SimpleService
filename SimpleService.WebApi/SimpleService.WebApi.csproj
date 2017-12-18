@@ -141,7 +141,6 @@
     </Compile>
     <Compile Include="Helpers\ContentType.cs" />
     <Compile Include="Helpers\DefaultActionFilter.cs" />
-    <Compile Include="Helpers\ReturnCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
