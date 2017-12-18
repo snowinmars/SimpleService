@@ -5,16 +5,16 @@ using System.Web.Http;
 namespace SimpleService.WebApi.Controllers
 {
 	[RoutePrefix("api/v1/albums")]
-	public class AlbumController : BaseController
+	public class AlbumsController : BaseController
 	{
 		private readonly IAlbumLogic logic;
 
-		public AlbumController(IAlbumLogic logic)
+		public AlbumsController(IAlbumLogic logic)
 		{
 			this.logic = logic;
 		}
 
-		// GET: api/Album
+		// GET: api/Albums
 		[HttpGet]
 		public async Task<string> Get()
 		{
@@ -23,7 +23,7 @@ namespace SimpleService.WebApi.Controllers
 			return this.Serialize(await albums);
 		}
 
-		// GET: api/Album/5
+		// GET: api/Albums/5
 		[HttpGet]
 		public async Task<string> Get(int id)
 		{
